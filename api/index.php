@@ -8,10 +8,14 @@ require_once dirname(__FILE__)."/dao/AccountDao.class.php";
 require_once dirname(__FILE__)."/dao/AlbumDao.class.php";
 
 $accountDao = new AccountDao();
+$baseDao = new BaseDao();
+
 
 $new_account = [
     "username" => "asdas",
 ];
+
+$baseDao->insert("accounts", $new_account);
 
 $accountDao->update_account(3, $new_account);
 

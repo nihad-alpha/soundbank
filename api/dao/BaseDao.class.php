@@ -12,8 +12,22 @@ require_once dirname(__FILE__)."/../config.php";
             }
         }
 
-        public function insert() {
+        public function insert($table, $params) {
+            $query = "INSERT INTO ${table} (";
+            foreach($params as $name => $values) {
+                $query .= " " .$name .",";
+            }
+            $query = substr($query, 0, -1);
+            $query .= ") VALUES (";
+            foreach($params as $name => $values) {
+                $query .= " :" .$name .",";
+            }
+            $query = substr($query, 0, -1);
+            $query .= ")";
+            echo $query;
+            echo "</br>";
 
+            $this->connection->prepare($query)->execute($params);
         }
 
         public function update($table, $field, $field_value, $params) {
