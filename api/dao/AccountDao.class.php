@@ -15,8 +15,8 @@ class AccountDao extends BaseDao {
         $this->connection->prepare($insert_query)->execute($params);
     }
 
-    public function update_account($id, $account) {
-        $this->update("accounts", "account_id", $id, $account);
+    public function update_account($id, $params) {
+        $this->update("accounts", "account_id", $id, $params);
     }
 }
 
