@@ -8,11 +8,9 @@ require_once dirname(__FILE__)."/dao/AccountDao.class.php";
 
 $accountDao = new AccountDao();
 
-$account = $accountDao->get_account_by_id(1);
 $new_account = [
-    "username" => "asda",
+    "username" => "asdas",
 ];
-
 
 $accountDao->update_account(3, $new_account);
 

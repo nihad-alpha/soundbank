@@ -16,8 +16,18 @@ require_once dirname(__FILE__)."/../config.php";
 
         }
 
-        public function update() {
-
+        public function update($table, $field, $field_value, $params) {
+            $query = "UPDATE ${table} SET ";
+            foreach($params as $name => $value) {
+                $query .= " " .$name ." = :". $name .", ";
+            }
+            $query = substr($query, 0, -2);
+            $query .= " WHERE ${field} = :${field}";
+            $params["${field}"] = $field_value;
+            echo $query;
+            echo "</br>";
+            $stmt= $this->connection->prepare($query);
+            $stmt->execute($params);
         }
 
         public function query($query, $params) {
