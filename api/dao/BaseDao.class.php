@@ -24,13 +24,14 @@ require_once dirname(__FILE__)."/../config.php";
             try {
                 $stmt = $this->connection->prepare($query);
                 $stmt->execute($params); 
-                return $stmt->fetchAll();
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
             } catch (Exception $e) {
                 echo $e->getMessage();
             }
         }
 
-        public function query_unique() {
-
+        public function query_unique($query, $params) {
+            $result = $this->query($query, $params);
+            return reset($result);
         }
     }
