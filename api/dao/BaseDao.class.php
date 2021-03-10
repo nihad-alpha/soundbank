@@ -24,8 +24,6 @@ require_once dirname(__FILE__)."/../config.php";
             $query = substr($query, 0, -2);
             $query .= " WHERE ${field} = :${field}";
             $params["${field}"] = $field_value;
-            echo $query;
-            echo "</br>";
             $stmt= $this->connection->prepare($query);
             $stmt->execute($params);
         }
