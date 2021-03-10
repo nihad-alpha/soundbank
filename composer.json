@@ -1,0 +1,11 @@
+{
+    "name": "ibu/soundbank",
+    "license": "Apache2",
+    "authors": [
+        {
+            "name": "nihadsuvalija",
+            "email": "nihadsuvalija@gmail.com"
+        }
+    ],
+    "require": {}
+}
