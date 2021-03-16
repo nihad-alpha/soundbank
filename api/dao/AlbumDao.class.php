@@ -18,12 +18,12 @@ class AlbumDao extends BaseDao {
         return $this->query("SELECT * FROM songs WHERE album_id = :id", ["id" => $id]);
     }
 
-    public function add_album($params) {
-        $this->insert("albums", $params);
+    public function add_album($album) {
+        return $this->insert("albums", $album);
     }
 
-    public function update_album($id, $params) {
-        $this->update("albums", "album_id", $id, $params);
+    public function update_album($id, $album) {
+        $this->update("albums", "album_id", $id, $album);
     }
 }
 

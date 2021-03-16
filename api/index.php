@@ -12,8 +12,10 @@ $baseDao = new BaseDao();
 
 
 $new_account = [
-    "username" => "domino",
+    "username" => "cokosmoki",
 ];
 
-$accountDao->add_account($new_account);
+$addedAccount = $accountDao->add_account($new_account);
+
+print_r($addedAccount);
 ?>

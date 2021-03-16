@@ -21,12 +21,12 @@ class SongDao extends BaseDao {
         return $this->query("SELECT album_id FROM songs WHERE song_id = :id", ["id" => $id]);
     }
 
-    public function add_song($params) {
-        $this->insert("songs", $params);
+    public function add_song($song) {
+        return $this->insert("songs", $song);
     }
 
-    public function update_song($id, $params) {
-        $this->update("songs", "song_id", $id, $params);
+    public function update_song($id, $song) {
+        $this->update("songs", "song_id", $id, $song);
     }
 }
 ?>

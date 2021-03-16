@@ -29,6 +29,8 @@ require_once dirname(__FILE__)."/../config.php";
                 echo "</br>";
 
                 $this->connection->prepare($query)->execute($params);
+                $params['id'] = $this->connection->lastInsertId();
+                return $params;
             }
             catch (Exception $e) {
                 echo $e->getMessage();
