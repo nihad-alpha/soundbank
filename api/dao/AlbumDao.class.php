@@ -19,8 +19,7 @@ class AlbumDao extends BaseDao {
     }
 
     public function add_album($params) {
-        $insert_query = "INSERT INTO albums (album_name, account_id, album_genre, cover_art_path, upload_date, album_length) VALUES (:album_name, :account_id, :album_genre, :cover_art_path, :upload_date, :album_length)";
-        $this->connection->prepare($insert_query)->execute($params);
+        $this->insert("albums", $params);
     }
 
     public function update_album($id, $params) {

@@ -11,8 +11,7 @@ class AccountDao extends BaseDao {
     }
 
     public function add_account($params) {
-        $insert_query = "INSERT INTO accounts (username, password, account_type_id) VALUES (:username, :password, :account_type_id)";
-        $this->connection->prepare($insert_query)->execute($params);
+        $this->insert("accounts", $params);
     }
 
     public function update_account($id, $params) {

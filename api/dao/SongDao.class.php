@@ -22,8 +22,7 @@ class SongDao extends BaseDao {
     }
 
     public function add_song($params) {
-        $insert_query = "INSERT INTO songs (song_name, song_genre, account_id, upload_date, cover_art_path) VALUES (:song_name, :song_genre, :account_id, :upload_date, :cover_art_path)";
-        $this->connection->prepare($insert_query)->execute($params);
+        $this->insert("songs", $params);
     }
 
     public function update_song($id, $params) {

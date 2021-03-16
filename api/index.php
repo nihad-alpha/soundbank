@@ -12,30 +12,8 @@ $baseDao = new BaseDao();
 
 
 $new_account = [
-    "username" => "asdas",
+    "username" => "domino",
 ];
 
-$baseDao->insert("accounts", $new_account);
-
-$accountDao->update_account(3, $new_account);
-
-$account = $accountDao->get_account_by_id(3);
-print_r($account);
-echo "</br>";
-
-$new_album = [
-    "album_name" => "MMLP2",
-    "account_id" => "4",
-    "album_genre" => "Rap",
-    "cover_art_path" => "C:\Users\Nihad\Desktop\art.jpg",
-    "upload_date" => "2021/10/12",
-    "album_length" => "4740"
-];
-
-$albumDao = new AlbumDao();
-$albumDao->update_album(1, $new_album);
-
-$album = $albumDao->get_album_by_id(1);
-
-print_r($album);
+$accountDao->add_account($new_account);
 ?>
