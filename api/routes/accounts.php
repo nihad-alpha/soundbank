@@ -14,6 +14,10 @@ Flight::route("GET /accounts/@id", function($id) {
     Flight::json(Flight::accountDao()->get_account_by_id($id));
 });
 
+Flight::route("GET /accounts/@username", function($username) {
+    Flight::json(Flight::accountDao()->get_account_by_username($username));
+});
+
 Flight::route("POST /accounts", function() {
     $request = Flight::request();
     Flight::accountDao()->add_account($request->data->getData());

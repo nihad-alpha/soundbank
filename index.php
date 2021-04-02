@@ -15,6 +15,8 @@ require_once dirname(__FILE__)."/api/routes/songs.php";
 Flight::register("accountDao", "AccountDao");
 Flight::register("albumDao", "AlbumDao");
 Flight::register("songDao", "SongDao");
+
+// Start FlightPHP framework.
 Flight::start();
 
 
