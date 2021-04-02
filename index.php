@@ -9,10 +9,12 @@ require_once dirname(__FILE__)."/api/dao/AccountDao.class.php";
 require_once dirname(__FILE__)."/api/dao/AlbumDao.class.php";
 require_once dirname(__FILE__)."/api/routes/accounts.php";
 require_once dirname(__FILE__)."/api/routes/albums.php";
+require_once dirname(__FILE__)."/api/routes/songs.php";
 
 // Registers the AccountDao class into FlightPHP.
 Flight::register("accountDao", "AccountDao");
 Flight::register("albumDao", "AlbumDao");
+Flight::register("songDao", "SongDao");
 Flight::start();
 
 

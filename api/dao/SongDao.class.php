@@ -1,6 +1,10 @@
 <?php
 class SongDao extends BaseDao {
 
+    public function get_all_songs() {
+        return $this->query("SELECT * FROM songs", []);
+    }
+
     public function get_song_by_id($id) {
         return $this->query_unique("SELECT * FROM songs WHERE song_id = :id", ["id" => $id]);
     }
