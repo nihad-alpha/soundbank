@@ -1,18 +1,11 @@
 <?php
-// Displays errors.
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-require_once dirname(__FILE__)."/../dao/AccountDao.class.php";
-require_once dirname(__FILE__)."/../services/AccountService.class.php";
 
 Flight::route("GET /accounts", function() {
     $search = Flight::query('search');
     $offset = Flight::query('offset', 0);
     $limit = Flight::query('limit', 25);
     
-    Flight::json(Flight::accountService()->get_accounts($search, $offset, $limit));
+    Flight::json(Flight::accountService()->search_accounts($search, $offset, $limit));
     
 });
 

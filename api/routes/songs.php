@@ -1,7 +1,4 @@
 <?php
-// Includes:
-require_once dirname(__FILE__)."/../dao/SongDao.class.php";
-
 
 Flight::route("GET /songs", function() {
     $search = Flight::query('search');
