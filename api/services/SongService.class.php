@@ -2,11 +2,13 @@
 require_once dirname(__FILE__)."/../dao/SongDao.class.php";
 
 class SongService {
+
     private $dao;
+
     public function __construct() {
         $this->dao = new SongDao();
     }
-
+    
     public function search_songs($search, $offset, $limit) {
         return $this->dao->search_songs($search, $offset, $limit);
     }
