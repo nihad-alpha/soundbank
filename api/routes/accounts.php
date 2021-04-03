@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 require_once dirname(__FILE__)."/../dao/AccountDao.class.php";
 
 Flight::route("GET /accounts", function() {
-    Flight::json(Flight::accountDao()->get_all_accounts());
+    Flight::json(Flight::accountDao()->get_all_account());
 });
 
 Flight::route("GET /accounts/@id", function($id) {
@@ -25,7 +25,7 @@ Flight::route("POST /accounts", function() {
 
 Flight::route("PUT /accounts/@id", function($id){
     $data = Flight::request()->data->getData();
-    Flight::accountDao()->update_account($id, $data);
+    Flight::accountDao()->update_account_by_id($id, $data);
     Flight::json(Flight::accountDao()->get_account_by_id($id));
 });
 

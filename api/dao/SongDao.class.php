@@ -1,8 +1,12 @@
 <?php
 class SongDao extends BaseDao {
 
-    public function get_all_songs() {
-        return $this->query("SELECT * FROM songs", []);
+    public function __construct() {
+        parent::__construct("songs");
+    }
+
+    public function get_all_songs($offset = 0, $limit = 10) {
+        return $this->get_all($offset, $limit);
     }
 
     public function get_song_by_id($id) {

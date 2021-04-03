@@ -2,8 +2,12 @@
 require_once dirname(__FILE__)."/../config.php";
 
     class BaseDao {
+
         protected $connection;
-        public function __construct() {
+        private $_table;
+
+        public function __construct($_table) {
+            $this->_table = $_table;
             try {
                 $this->connection = new PDO("mysql:host=".Config::DB_HOST.";dbname=".Config::DB_NAME, Config::DB_USERNAME, Config::DB_PASSWORD);
                 $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -57,10 +61,16 @@ require_once dirname(__FILE__)."/../config.php";
             } catch (Exception $e) {
                 echo $e->getMessage();
             }
+
+            echo $query;
         }
 
         public function query_unique($query, $params) {
             $result = $this->query($query, $params);
             return reset($result);
+        }
+
+        public function get_all($offset = 0, $limit = 25) {
+            return $this->query("SELECT * FROM ". $this->_table . " LIMIT ${limit} OFFSET ${offset}", []);
         }
     }
