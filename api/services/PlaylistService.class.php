@@ -1,8 +1,8 @@
 <?php
 require_once dirname(__FILE__)."/../dao/PlaylistDao.class.php";
+require_once dirname(__FILE__)."/BaseService.class.php";
 
-class PlaylistService {
-    protected $dao;
+class PlaylistService extends BaseService {
 
     public function __construct() {
         $this->dao = new PlaylistDao();

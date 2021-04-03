@@ -1,9 +1,8 @@
 <?php
 require_once dirname(__FILE__)."/../dao/SongDao.class.php";
+require_once dirname(__FILE__)."/BaseService.class.php";
 
-class SongService {
-
-    private $dao;
+class SongService extends BaseService{
 
     public function __construct() {
         $this->dao = new SongDao();
