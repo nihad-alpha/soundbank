@@ -1,4 +1,14 @@
 <?php 
+
+/* 
+    TO DO:
+    - learn superglobal variables
+    - add services
+    - implement swagger
+    - implement emailing system
+    - implement middleware
+*/
+
 // Displays errors.
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -16,6 +26,13 @@ require_once dirname(__FILE__)."/api/routes/songs.php";
 Flight::register("accountDao", "AccountDao");
 Flight::register("albumDao", "AlbumDao");
 Flight::register("songDao", "SongDao");
+
+Flight::map('query', function($name, $default_value = null) {
+    $request = Flight::request();
+    $query_params = @$request->query->getData()[$name];
+    $query_params = $query_params ? $query_params : $default_value;
+    return $query_params;
+});
 
 // Start FlightPHP framework.
 Flight::start();

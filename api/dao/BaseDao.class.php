@@ -6,7 +6,7 @@ require_once dirname(__FILE__)."/../config.php";
         protected $connection;
         private $_table;
 
-        public function __construct($_table) {
+        protected function __construct($_table) {
             $this->_table = $_table;
             try {
                 $this->connection = new PDO("mysql:host=".Config::DB_HOST.";dbname=".Config::DB_NAME, Config::DB_USERNAME, Config::DB_PASSWORD);
@@ -16,7 +16,7 @@ require_once dirname(__FILE__)."/../config.php";
             }
         }
 
-        public function insert($table, $params) {
+        protected function insert($table, $params) {
             try {
                 $query = "INSERT INTO ${table} (";
                 foreach($params as $name => $values) {
@@ -41,7 +41,11 @@ require_once dirname(__FILE__)."/../config.php";
             }
         }
 
-        public function update($table, $field, $field_value, $params) {
+        public function add($params) {
+            return insert($this->_table, $params);
+        }
+
+        protected function update($table, $field, $field_value, $params) {
             $query = "UPDATE ${table} SET ";
             foreach($params as $name => $value) {
                 $query .= " " .$name ." = :". $name .", ";
@@ -53,7 +57,7 @@ require_once dirname(__FILE__)."/../config.php";
             $stmt->execute($params);
         }
 
-        public function query($query, $params) {
+        protected function query($query, $params) {
             try {
                 $stmt = $this->connection->prepare($query);
                 $stmt->execute($params); 
@@ -65,12 +69,12 @@ require_once dirname(__FILE__)."/../config.php";
             echo $query;
         }
 
-        public function query_unique($query, $params) {
+        protected function query_unique($query, $params) {
             $result = $this->query($query, $params);
             return reset($result);
         }
 
-        public function get_all($offset = 0, $limit = 25) {
+        protected function get_all($offset = 0, $limit = 25) {
             return $this->query("SELECT * FROM ". $this->_table . " LIMIT ${limit} OFFSET ${offset}", []);
         }
     }

@@ -2,7 +2,9 @@
 require_once dirname(__FILE__)."/../dao/SongDao.class.php";
 
 Flight::route("GET /songs", function() {
-    Flight::json(Flight::songDao()->get_all_songs());
+    $offset = Flight::query('offset', 0);
+    $limit = Flight::query('limit', 25);
+    Flight::json(Flight::songDao()->get_all_songs($offset, $limit));
 });
 
 Flight::route("GET /songs/@id", function($id) {
