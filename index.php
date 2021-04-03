@@ -21,11 +21,15 @@ require_once dirname(__FILE__)."/api/dao/BaseDao.class.php";
 require_once dirname(__FILE__)."/api/routes/accounts.php";
 require_once dirname(__FILE__)."/api/routes/albums.php";
 require_once dirname(__FILE__)."/api/routes/songs.php";
+require_once dirname(__FILE__)."/api/services/AccountService.class.php";
 
-// Registers the AccountDao class into FlightPHP.
+// Links DAO layer and Presentation Layer (at the moment this is not supposed to be here!)
 Flight::register("accountDao", "AccountDao");
 Flight::register("albumDao", "AlbumDao");
 Flight::register("songDao", "SongDao");
+
+// Links DAO layer and Business Logic Layer 
+Flight::register("accountService", "AccountService");
 
 // Mapped a function which returns values from the query inside of the link.
 Flight::map('query', function($name, $default_value = null) {

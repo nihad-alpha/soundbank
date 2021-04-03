@@ -34,7 +34,7 @@ class AccountDao extends BaseDao {
     }
 
     public function add_account($params) {
-        return $this->insert("accounts", $params);
+        $this->insert("accounts", $params);
     }
 
     public function update_account_by_id($id, $params) {
