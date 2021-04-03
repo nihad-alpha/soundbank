@@ -11,6 +11,12 @@ class AccountDao extends BaseDao {
         return $this->get_all($offset, $limit);
     }
 
+    public function get_accounts($search, $offset, $limit) {
+        return $this->query("SELECT * FROM accounts 
+                             WHERE LOWER(name) LIKE CONCAT('%', :name, '%') 
+                             LIMIT ${limit} OFFSET ${offset}", ["name" => strtolower($search)]);
+    }
+
     public function get_account_by_id($id) {
         return $this->query_unique("SELECT * FROM accounts WHERE account_id = :id", ["id" => $id]);
     }

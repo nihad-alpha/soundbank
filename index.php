@@ -27,6 +27,7 @@ Flight::register("accountDao", "AccountDao");
 Flight::register("albumDao", "AlbumDao");
 Flight::register("songDao", "SongDao");
 
+// Mapped a function which returns values from the query inside of the link.
 Flight::map('query', function($name, $default_value = null) {
     $request = Flight::request();
     $query_params = @$request->query->getData()[$name];

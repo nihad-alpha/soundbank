@@ -9,7 +9,15 @@ require_once dirname(__FILE__)."/../dao/AccountDao.class.php";
 Flight::route("GET /accounts", function() {
     $offset = Flight::query('offset', 0);
     $limit = Flight::query('limit', 25);
-    Flight::json(Flight::accountDao()->get_all_accounts($offset, $limit));
+
+    $search = Flight::query('search');
+
+    if ($search) {
+        Flight::json(Flight::accountDao()->get_accounts($search, $offset, $limit));
+    } else {
+        Flight::json(Flight::accountDao()->get_all_accounts($offset, $limit));
+    }
+    
 });
 
 Flight::route("GET /accounts/@id", function($id) {
