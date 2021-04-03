@@ -10,6 +10,13 @@ class AlbumDao extends BaseDao {
     public function get_all_albums($offset = 0, $limit = 10) {
         return $this->get_all($offset, $limit);
     }
+
+    public function search_albums($search, $offset, $limit) {
+        return $this->query("SELECT * FROM albums 
+                             WHERE LOWER(album_name) LIKE CONCAT('%', :album_name, '%') 
+                             LIMIT ${limit} OFFSET ${offset}", ["album_name" => strtolower($search)]);
+    }
+
     public function get_album_by_id($id) {
         return $this->query_unique("SELECT * FROM albums WHERE album_id = :id", ["id" => $id]);
     }
@@ -27,7 +34,7 @@ class AlbumDao extends BaseDao {
     }
 
     public function add_album($album) {
-        return $this->insert("albums", $album);
+        $this->insert("albums", $album);
     }
 
     public function update_album($id, $album) {
