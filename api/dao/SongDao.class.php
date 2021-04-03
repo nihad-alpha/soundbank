@@ -5,6 +5,12 @@ class SongDao extends BaseDao {
         parent::__construct("songs");
     }
 
+    public function search_songs($search, $offset, $limit) {
+        return $this->query("SELECT * FROM songs 
+                             WHERE LOWER(song_name) LIKE CONCAT('%', :song_name, '%') 
+                             LIMIT ${limit} OFFSET ${offset}", ["song_name" => strtolower($search)]);
+    }
+
     public function get_all_songs($offset = 0, $limit = 10) {
         return $this->get_all($offset, $limit);
     }
@@ -30,11 +36,11 @@ class SongDao extends BaseDao {
     }
 
     public function add_song($song) {
-        return $this->insert("songs", $song);
+        $this->insert("songs", $song);
     }
 
     public function update_song($id, $song) {
-        $this->update("songs", "song_id", $id, $song);
+        return $this->update("songs", "song_id", $id, $song);
     }
 }
 ?>
