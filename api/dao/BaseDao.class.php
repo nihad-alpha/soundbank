@@ -16,6 +16,7 @@ require_once dirname(__FILE__)."/../config.php";
             }
         }
 
+        // Inserting.
         protected function insert($table, $params) {
             try {
                 $query = "INSERT INTO ${table} (";
@@ -41,10 +42,12 @@ require_once dirname(__FILE__)."/../config.php";
             }
         }
 
+        // Inserting function allowed publicly.
         public function add($params) {
             return insert($this->_table, $params);
         }
 
+        // Updating.
         protected function update($table, $field, $field_value, $params) {
             $query = "UPDATE ${table} SET ";
             foreach($params as $name => $value) {
@@ -57,6 +60,7 @@ require_once dirname(__FILE__)."/../config.php";
             $stmt->execute($params);
         }
 
+        // Sending a query with it's parameters.
         protected function query($query, $params) {
             try {
                 $stmt = $this->connection->prepare($query);
@@ -69,11 +73,13 @@ require_once dirname(__FILE__)."/../config.php";
             echo $query;
         }
 
+        // Sending a query for unique entries in the database.
         protected function query_unique($query, $params) {
             $result = $this->query($query, $params);
             return reset($result);
         }
 
+        // Getting all data from a table in the database using offset and limit.
         protected function get_all($offset = 0, $limit = 25) {
             return $this->query("SELECT * FROM ". $this->_table . " LIMIT ${limit} OFFSET ${offset}", []);
         }
