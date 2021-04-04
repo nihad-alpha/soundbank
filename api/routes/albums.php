@@ -9,17 +9,17 @@ Flight::route("GET /albums", function() {
 });
 
 Flight::route("GET /albums/@id", function($id) {
-    Flight::json(Flight::albumService()->get_album_by_id($id));
+    Flight::json(Flight::albumService()->get_by_id($id));
 });
 
 Flight::route("POST /albums", function() {
     $request = Flight::request();
-    Flight::albumService()->add_album($request->data->getData());
+    Flight::albumService()->add($request->data->getData());
 });
 
 Flight::route("PUT /albums/@id", function($id) {
     $data = Flight::request()->data->getData();
-    Flight::albumService()->update_album($id, $data);
-    Flight::json(Flight::albumService()->get_album_by_id($id));
+    Flight::albumService()->update($id, $data);
+    Flight::json(Flight::albumService()->get_by_id($id));
 });
 ?>
