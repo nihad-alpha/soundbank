@@ -1,4 +1,9 @@
 <?php
+// Displays errors.
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once dirname(__FILE__)."/../dao/AccountDao.class.php";
 require_once dirname(__FILE__)."/BaseService.class.php";
 
@@ -12,7 +17,7 @@ class AccountService extends BaseService {
         if ($search) {
             return $this->dao->search_accounts($search, $offset, $limit);
         } else {
-            return $this->dao->get_all_accounts($offset, $limit);
+            return $this->dao->get_all($offset, $limit);
         }
     }
 

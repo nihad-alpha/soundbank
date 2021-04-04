@@ -11,7 +11,7 @@ class AlbumService extends BaseService {
         if ($search) {
             return $this->dao->search_albums($search, $offset, $limit);
         } else {
-            return $this->dao->get_all_albums($offset, $limit);
+            return $this->dao->get_all($offset, $limit);
         }
     }
 

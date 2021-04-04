@@ -13,7 +13,7 @@ class SongService extends BaseService{
         if ($search) {
             return $this->dao->search_songs($search, $offset, $limit);
         } else {
-            return $this->dao->get_all_songs($offset, $limit);
+            return $this->dao->get_all($offset, $limit);
         }
     }
 

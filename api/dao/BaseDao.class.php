@@ -1,4 +1,9 @@
 <?php 
+// Displays errors.
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once dirname(__FILE__)."/../config.php";
 
     class BaseDao {
@@ -30,8 +35,6 @@ require_once dirname(__FILE__)."/../config.php";
                 }
                 $query = substr($query, 0, -1);
                 $query .= ")";
-                echo $query;
-                echo "</br>";
 
                 $this->connection->prepare($query)->execute($params);
                 $params['id'] = $this->connection->lastInsertId();
@@ -44,7 +47,7 @@ require_once dirname(__FILE__)."/../config.php";
 
         // Inserting function allowed publicly.
         public function add($params) {
-            return insert($this->_table, $params);
+            $this->insert($this->_table, $params);
         }
 
         // Updating.
@@ -69,8 +72,6 @@ require_once dirname(__FILE__)."/../config.php";
             } catch (Exception $e) {
                 echo $e->getMessage();
             }
-
-            echo $query;
         }
 
         // Sending a query for unique entries in the database.
@@ -80,7 +81,7 @@ require_once dirname(__FILE__)."/../config.php";
         }
 
         // Getting all data from a table in the database using offset and limit.
-        protected function get_all($offset = 0, $limit = 25) {
+        public function get_all($offset = 0, $limit = 25) {
             return $this->query("SELECT * FROM ". $this->_table . " LIMIT ${limit} OFFSET ${offset}", []);
         }
     }

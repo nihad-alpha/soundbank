@@ -1,15 +1,15 @@
 <?php
+// Displays errors.
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once dirname(__FILE__)."/BaseDao.class.php";
 
 class AccountDao extends BaseDao {
 
     public function __construct() {
         parent::__construct("accounts");
-    }
-    
-    // Getting all accounts using offset and limit.
-    public function get_all_accounts($offset = 0, $limit = 10) {
-        return $this->get_all($offset, $limit);
     }
 
     // Searching accounts by name.
@@ -32,11 +32,6 @@ class AccountDao extends BaseDao {
     // Getting an account by username.
     public function get_by_username($username) {
         return $this->query_unique("SELECT * FROM accounts WHERE username = :username", ["username" => $username]);
-    }
-
-    // Adding accounts into the database.
-    public function add($params) {
-        $this->insert("accounts", $params);
     }
 
     // Updating an account by an id.

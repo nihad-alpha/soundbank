@@ -14,11 +14,6 @@ class AlbumDao extends BaseDao {
                              LIMIT ${limit} OFFSET ${offset}", ["album_name" => strtolower($search)]);
     }
 
-    /*// Getting all albums using offset and limit.
-    public function get_all_albums($offset = 0, $limit = 10) {
-        return $this->get_all($offset, $limit);
-    }*/
-
     // Getting an album by an id.
     public function get_by_id($id) {
         return $this->query_unique("SELECT * FROM albums WHERE album_id = :id", ["id" => $id]);
@@ -27,11 +22,6 @@ class AlbumDao extends BaseDao {
     // Getting an album by it's name.
     public function get_album_by_name($album_name) {
         return $this->query("SELECT * FROM albums WHERE album_name = :album_name", ["album_name" => $album_name]);
-    }
-
-    // Adding albums into the database.
-    public function add($album) {
-        $this->insert("albums", $album);
     }
 
     // Updating albums in the database.

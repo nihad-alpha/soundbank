@@ -12,7 +12,7 @@ class ArtistService extends BaseService {
         if ($search) {
             return $this->dao->search_artists($search, $offset, $limit);
         } else {
-            return $this->dao->get_all_artists($offset, $limit);
+            return $this->dao->get_all($offset, $limit);
         }
     }
 

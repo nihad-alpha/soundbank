@@ -12,11 +12,6 @@ class SongDao extends BaseDao {
                              LIMIT ${limit} OFFSET ${offset}", ["song_name" => strtolower($search)]);
     }
 
-    // Getting all songs from the database using offset and limit.
-    public function get_all_songs($offset = 0, $limit = 10) {
-        return $this->get_all($offset, $limit);
-    }
-
     // Getting a song by an id.
     public function get_by_id($id) {
         return $this->query_unique("SELECT * FROM songs WHERE song_id = :id", ["id" => $id]);
@@ -25,11 +20,6 @@ class SongDao extends BaseDao {
     // Getting a song by it's name.
     public function get_song_by_name($song_name) {
         return $this->query("SELECT * FROM songs WHERE song_name = :song_name", ["song_name" => $song_name]);
-    }
-
-    // Adding a song into the database.
-    public function add($song) {
-        $this->insert("songs", $song);
     }
 
     // Updating a song in the database.

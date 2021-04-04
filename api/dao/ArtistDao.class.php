@@ -14,10 +14,6 @@ class ArtistDao extends BaseDao {
                              LIMIT ${limit} OFFSET ${offset}", ["artist_name" => strtolower($search)]);
     }
 
-    // Getting all artists using offset and limit.
-    public function get_all_artists($offset = 0, $limit = 25) {
-        return $this->get_all($offset, $limit);
-    }
 
     // Getting artist by an id.
     public function get_by_id($id){
@@ -27,11 +23,6 @@ class ArtistDao extends BaseDao {
     // Getting artist by name.
     public function get_by_name($name) {
         $this->query("SELECT * FROM artists WHERE artist_name = :artist_name", ["artist_name" => $name]);
-    }
-
-    // Adding artist into the database.
-    public function add($params) {
-        $this->insert("artists", $params);
     }
 
     // Updating existing artists in the database.
