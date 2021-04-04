@@ -19,7 +19,7 @@ Flight::route("POST /albums", function() {
 
 Flight::route("PUT /albums/@id", function($id) {
     $data = Flight::request()->data->getData();
-    Flight::albumService()->update($id, $data);
+    Flight::albumService()->update_by_id($id, $data);
     Flight::json(Flight::albumService()->get_by_id($id));
 });
 ?>

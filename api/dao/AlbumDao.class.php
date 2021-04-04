@@ -14,10 +14,10 @@ class AlbumDao extends BaseDao {
                              LIMIT ${limit} OFFSET ${offset}", ["album_name" => strtolower($search)]);
     }
 
-    // Getting all albums using offset and limit.
+    /*// Getting all albums using offset and limit.
     public function get_all_albums($offset = 0, $limit = 10) {
         return $this->get_all($offset, $limit);
-    }
+    }*/
 
     // Getting an album by an id.
     public function get_by_id($id) {

@@ -19,6 +19,7 @@ Flight::route("POST /playlists", function() {
 Flight::route("PUT /playlists/@id", function($id) {
     $request = Flight::request();
     Flight::playlistService()->update_by_id($id, $request->data->getData());
+    Flight::json(Flight::playlistService()->get_by_id($id));
 });
 
 ?>
