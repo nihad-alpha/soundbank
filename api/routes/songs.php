@@ -9,17 +9,17 @@ Flight::route("GET /songs", function() {
 });
 
 Flight::route("GET /songs/@id", function($id) {
-    Flight::json(Flight::songService()->get_song_by_id($id));
+    Flight::json(Flight::songService()->get_by_id($id));
 });
 
 Flight::route("POST /songs", function() {
     $request = Flight::request();
-    Flight::songService()->add_song($request->data->getData());
+    Flight::songService()->add($request->data->getData());
 });
 
 Flight::route("PUT /songs/@id", function($id) {
     $data = Flight::request()->data->getData();
-    Flight::songService()->update_song($id, $data);
-    Flight::json(Flight::songService()->get_song_by_id($id));
+    Flight::songService()->update_by_id($id, $data);
+    Flight::json(Flight::songService()->get_by_id($id));
 });
 ?>

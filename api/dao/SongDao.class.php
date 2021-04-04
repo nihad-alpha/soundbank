@@ -18,7 +18,7 @@ class SongDao extends BaseDao {
     }
 
     // Getting a song by an id.
-    public function get_song_by_id($id) {
+    public function get_by_id($id) {
         return $this->query_unique("SELECT * FROM songs WHERE song_id = :id", ["id" => $id]);
     }
 
@@ -28,13 +28,13 @@ class SongDao extends BaseDao {
     }
 
     // Adding a song into the database.
-    public function add_song($song) {
+    public function add($song) {
         $this->insert("songs", $song);
     }
 
     // Updating a song in the database.
-    public function update_song($id, $song) {
-        return $this->update("songs", "song_id", $id, $song);
+    public function update_by_id($id, $song) {
+        return parent::update("songs", "song_id", $id, $song);
     }
 }
 ?>

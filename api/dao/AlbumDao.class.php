@@ -20,7 +20,7 @@ class AlbumDao extends BaseDao {
     }
 
     // Getting an album by an id.
-    public function get_album_by_id($id) {
+    public function get_by_id($id) {
         return $this->query_unique("SELECT * FROM albums WHERE album_id = :id", ["id" => $id]);
     }
 
@@ -30,12 +30,12 @@ class AlbumDao extends BaseDao {
     }
 
     // Adding albums into the database.
-    public function add_album($album) {
+    public function add($album) {
         $this->insert("albums", $album);
     }
 
     // Updating albums in the database.
-    public function update_album($id, $album) {
+    public function update_by_id($id, $album) {
         return $this->update("albums", "album_id", $id, $album);
     }
 }

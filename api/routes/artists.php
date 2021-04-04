@@ -18,6 +18,6 @@ Flight::route("POST /artists", function() {
 
 Flight::route("PUT /artists/@id", function($id) {
     $request = Flight::request();
-    Flight::artistService()->update_artist($id, $request->data->getData());
+    Flight::artistService()->update_by_id($id, $request->data->getData());
 });
 ?>

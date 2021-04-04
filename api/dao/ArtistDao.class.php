@@ -20,22 +20,22 @@ class ArtistDao extends BaseDao {
     }
 
     // Getting artist by an id.
-    public function get_artist_by_id($id){
+    public function get_by_id($id){
         return $this->query_unique("SELECT * FROM artists WHERE artist_id = :artist_id", ["artist_id" => $id]);
     }
 
     // Getting artist by name.
-    public function get_artist_by_name($name) {
+    public function get_by_name($name) {
         $this->query("SELECT * FROM artists WHERE artist_name = :artist_name", ["artist_name" => $name]);
     }
 
     // Adding artist into the database.
-    public function add_artist($params) {
+    public function add($params) {
         $this->insert("artists", $params);
     }
 
     // Updating existing artists in the database.
-    public function update_artist($id, $params) {
+    public function update_by_id($id, $params) {
         $this->update("artists", "artist_id", $id, $params);
     } 
 }

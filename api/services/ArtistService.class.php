@@ -16,20 +16,8 @@ class ArtistService extends BaseService{
         }
     }
 
-    public function get_artist_by_id($id) {
-        return $this->dao->get_artist_by_id($id);
-    }
-
     public function get_artist_by_name($name) {
         return $this->dao->get_artist_by_name($name);
-    }
-
-    public function add_artist($params) {
-        $this->dao->add_artist($params);
-    }
-
-    public function update_artist($id, $params) {
-        $this->dao->update_artist($id, $params);
     }
 } 
 ?>

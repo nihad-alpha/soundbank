@@ -8,7 +8,7 @@ class PlaylistDAO extends BaseDao{
     }
 
     // Searching playlists by name.
-    public function search_accounts($search, $offset, $limit) {
+    public function search_playlists($search, $offset, $limit) {
         return $this->query("SELECT * FROM playlists 
                              WHERE LOWER(name) LIKE CONCAT('%', :name, '%') 
                              LIMIT ${limit} OFFSET ${offset}", ["name" => strtolower($search)]);
@@ -20,17 +20,17 @@ class PlaylistDAO extends BaseDao{
     }
 
     // Get playlists by an id.
-    public function get_playlist_by_id($id) {
+    public function get_by_id($id) {
         return $this->query("SELECT * FROM playlists WHERE playlist_id = :playlist_id", ["playlist_id" => $id]);
     }
 
     // Insert new playlist into the database.
-    public function add_playlist($params) {
+    public function add($params) {
         $this->insert("playlists", $params);
     }
 
     // Update existing playlists in the database.
-    public function update_playlist($id, $params) {
+    public function update_by_id($id, $params) {
         $this->update("playlists", "playlist_id", $id, $params);
     }
 }

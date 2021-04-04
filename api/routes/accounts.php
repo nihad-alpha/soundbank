@@ -10,7 +10,7 @@ Flight::route("GET /accounts", function() {
 });
 
 Flight::route("GET /accounts/@id", function($id) {
-    Flight::json(Flight::accountService()->get_account_by_id($id));
+    Flight::json(Flight::accountService()->get_by_id($id));
 });
 
 Flight::route("GET /accounts/@username", function($username) {
@@ -19,13 +19,13 @@ Flight::route("GET /accounts/@username", function($username) {
 
 Flight::route("POST /accounts", function() {
     $request = Flight::request();
-    Flight::accountService()->add_account($request->data->getData());
+    Flight::accountService()->add($request->data->getData());
 });
 
 Flight::route("PUT /accounts/@id", function($id){
     $data = Flight::request()->data->getData();
-    Flight::accountService()->update_account_by_id($id, $data);
-    Flight::json(Flight::accountService()->get_account_by_id($id));
+    Flight::accountService()->update_by_id($id, $data);
+    Flight::json(Flight::accountService()->get_by_id($id));
 });
 
 // Route made for understanding the mechanics of FlightPHP and other frameworks. NOT NECESSARY FOR PROJECT!

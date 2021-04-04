@@ -16,20 +16,8 @@ class PlaylistService extends BaseService {
         }
     }
 
-    public function get_playlist_by_id($id) {
-        return $this->dao->get_playlist_by_id($id);
-    }
-
     public function get_all_playlists($offset = 0, $limit = 25) {
-        return $this->dao->get_all_playlists($offset, $limit);
-    }
-
-    public function add_playlist($params) {
-        $this->dao->add_playlist($params);
-    }
-
-    public function update_playlist($id, $params) {
-        $this->dao->update_playlist($id, $params);
+        return $this->dao->get_all($offset, $limit);
     }
 }
 ?>

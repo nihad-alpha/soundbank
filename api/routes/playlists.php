@@ -9,16 +9,16 @@ Flight::route("GET /playlists", function() {
 });
 
 Flight::route("GET /playlists/@id", function($id) {
-    Flight::json(Flight::playlistService()->get_playlist_by_id($id));
+    Flight::json(Flight::playlistService()->get_by_id($id));
 });
 
 Flight::route("POST /playlists", function() {
-    Flight::playlistService()->add_playlist(Flight::request()->data->getData());
+    Flight::playlistService()->add(Flight::request()->data->getData());
 });
 
 Flight::route("PUT /playlists/@id", function($id) {
     $request = Flight::request();
-    Flight::playlistService()->update_playlist($id, $request->data->getData());
+    Flight::playlistService()->update_by_id($id, $request->data->getData());
 });
 
 ?>
