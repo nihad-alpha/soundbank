@@ -14,15 +14,9 @@ class ArtistDao extends BaseDao {
                              LIMIT ${limit} OFFSET ${offset}", ["artist_name" => strtolower($search)]);
     }
 
-
     // Getting artist by an id.
     public function get_by_id($id){
         return $this->query_unique("SELECT * FROM artists WHERE artist_id = :artist_id", ["artist_id" => $id]);
-    }
-
-    // Getting artist by name.
-    public function get_by_name($name) {
-        $this->query("SELECT * FROM artists WHERE artist_name = :artist_name", ["artist_name" => $name]);
     }
 
     // Updating existing artists in the database.

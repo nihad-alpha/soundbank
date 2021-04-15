@@ -17,11 +17,6 @@ class SongDao extends BaseDao {
         return $this->query_unique("SELECT * FROM songs WHERE song_id = :id", ["id" => $id]);
     }
 
-    // Getting a song by it's name.
-    public function get_song_by_name($song_name) {
-        return $this->query("SELECT * FROM songs WHERE song_name = :song_name", ["song_name" => $song_name]);
-    }
-
     // Updating a song in the database.
     public function update_by_id($id, $song) {
         return parent::update("songs", "song_id", $id, $song);

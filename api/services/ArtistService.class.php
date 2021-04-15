@@ -8,16 +8,12 @@ class ArtistService extends BaseService {
         $this->dao = new ArtistDao();
     }
 
-    public function search_artists($search, $offset, $limit) {
+    public function get_artists($search, $offset, $limit) {
         if ($search) {
             return $this->dao->search_artists($search, $offset, $limit);
         } else {
             return $this->dao->get_all($offset, $limit);
         }
-    }
-
-    public function get_artist_by_name($name) {
-        return $this->dao->get_artist_by_name($name);
     }
 } 
 ?>

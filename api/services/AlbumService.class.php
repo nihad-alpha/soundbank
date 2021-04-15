@@ -7,7 +7,7 @@ class AlbumService extends BaseService {
         $this->dao = new AlbumDao();
     }
 
-    public function search_albums($search, $offset, $limit) {
+    public function get_albums($search, $offset, $limit) {
         if ($search) {
             return $this->dao->search_albums($search, $offset, $limit);
         } else {
@@ -15,8 +15,12 @@ class AlbumService extends BaseService {
         }
     }
 
-    public function get_album_by_id($id) {
-        return $this->dao->get_album_by_id($id);
+    public function get_by_id($id) {
+        return $this->dao->get_by_id($id);
+    }
+
+    public function get_by_name($album_name) {
+        return $this->dao->get_by_name($album_name);
     }
 }
 ?>

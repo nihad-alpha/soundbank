@@ -5,7 +5,7 @@ Flight::route("GET /playlists", function() {
     $offset = Flight::query('offset', 0);
     $limit = Flight::query('limit', 25);
 
-    Flight::json(Flight::playlistService()->search_playlists($search, $offset, $limit));
+    Flight::json(Flight::playlistService()->get_playlists($search, $offset, $limit));
 });
 
 Flight::route("GET /playlists/@id", function($id) {

@@ -20,7 +20,7 @@ class AlbumDao extends BaseDao {
     }
 
     // Getting an album by it's name.
-    public function get_album_by_name($album_name) {
+    public function get_by_name($album_name) {
         return $this->query("SELECT * FROM albums WHERE album_name = :album_name", ["album_name" => $album_name]);
     }
 
