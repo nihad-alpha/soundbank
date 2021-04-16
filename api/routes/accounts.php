@@ -21,7 +21,7 @@ Flight::route("GET /accounts/username/@username", function($username) {
     Flight::json(Flight::accountService()->get_by_username($username));
 });
 
-Flight::route("POST /accounts", function() {
+Flight::route("POST /accounts/register", function() {
     $request = Flight::request();
     Flight::accountService()->add($request->data->getData());
 });
