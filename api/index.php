@@ -16,23 +16,23 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Includes FlightPHP.
-require_once "vendor/autoload.php";
 
-// Includes Daos, Routes and Services
-require_once dirname(__FILE__)."/api/dao/AccountDao.class.php";
-require_once dirname(__FILE__)."/api/dao/AlbumDao.class.php";
-require_once dirname(__FILE__)."/api/dao/BaseDao.class.php";
-require_once dirname(__FILE__)."/api/routes/accounts.php";
-require_once dirname(__FILE__)."/api/routes/albums.php";
-require_once dirname(__FILE__)."/api/routes/songs.php";
-require_once dirname(__FILE__)."/api/routes/playlists.php";
-require_once dirname(__FILE__)."/api/routes/artists.php";
-require_once dirname(__FILE__)."/api/services/AccountService.class.php";
-require_once dirname(__FILE__)."/api/services/AlbumService.class.php";
-require_once dirname(__FILE__)."/api/services/SongService.class.php";
-require_once dirname(__FILE__)."/api/services/PlaylistService.class.php";
-require_once dirname(__FILE__)."/api/services/ArtistService.class.php";
+// Includes FlightPHP.
+require_once dirname(__FILE__)."/../vendor/autoload.php";
+
+// Include routes:
+require_once dirname(__FILE__)."/routes/accounts.php";
+require_once dirname(__FILE__)."/routes/albums.php";
+require_once dirname(__FILE__)."/routes/songs.php";
+require_once dirname(__FILE__)."/routes/playlists.php";
+require_once dirname(__FILE__)."/routes/artists.php";
+
+// Include services:
+require_once dirname(__FILE__)."/services/AccountService.class.php";
+require_once dirname(__FILE__)."/services/AlbumService.class.php";
+require_once dirname(__FILE__)."/services/SongService.class.php";
+require_once dirname(__FILE__)."/services/PlaylistService.class.php";
+require_once dirname(__FILE__)."/services/ArtistService.class.php";
 
 // Links DAO layer and Presentation Layer (at the moment this is not supposed to be here!)
 Flight::register("accountDao", "AccountDao");
@@ -54,6 +54,15 @@ Flight::map('query', function($name, $default_value = null) {
     return $query_params;
 });
 
+// Swagger documentation:
+Flight::route ("GET /swagger", function () {
+    $openapi = @\OpenApi\scan(dirname(__FILE__)."/routes");
+    header('Content-Type: application/json');
+    echo $openapi->toJson();
+});
+
+
 // Start FlightPHP framework.
 Flight::start();
+
 ?>

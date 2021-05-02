@@ -4,10 +4,12 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Swagger API
-
+// IMPORTANT SWAGGER SETUP CONFIGURATION:
 /**
  * @OA\Info(title="Soundbank API", version="0.1")
+ * * @OA\OpenApi(
+ *   @OA\Server( url="http://localhost/soundbank/api/", description="Development Environment")
+ * )
  */
 
 /**
@@ -36,7 +38,7 @@ Flight::route("GET /accounts", function() {
      *         required=true,
      *         @OA\Schema(
      *           type="integer",
-     *           default=1
+     *           example=1
      *         )
      *     ),
  * )
@@ -56,7 +58,7 @@ Flight::route("GET /accounts/id/@id", function($id) {
      *         required=true,
      *         @OA\Schema(
      *           type="string",
-     *           default="nihad"
+     *           example="nihad"
      *         )
      *     ),
  * )
@@ -86,8 +88,7 @@ Flight::route("POST /accounts/register", function() {
      *         name="id",
      *         required=true,
      *         @OA\Schema(
-     *           type="integer",
-     *           default=1
+     *           type="integer"
      *         )
      *     ),
  * )
