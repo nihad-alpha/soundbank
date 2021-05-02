@@ -2,10 +2,13 @@
 
 /* 
     TO DO:
-    - learn superglobal variables
     - implement swagger
     - implement emailing system
+        - login authentication
+        - JWT token
     - implement middleware
+    - implement the GUI
+    - deploy
 */
 
 // Displays errors.
