@@ -13,8 +13,10 @@ error_reporting(E_ALL);
  */
 
 /**
- * @OA\Get(
- *     path="/accounts",
+ * @OA\Get( path="/accounts", tags={"account"},
+ *     @OA\Parameter(type="string", in="query", name="search", default=""),
+ *     @OA\Parameter(type="integer", in="query", name="offset", default=0),
+ *     @OA\Parameter(type="integer", in="query", name="limit", default=25),
  *     @OA\Response(response="200", description="Output all accounts")
  * )
  */
@@ -28,19 +30,9 @@ Flight::route("GET /accounts", function() {
 });
 
 /**
- * @OA\Get(
- *     path="/accounts/id/{id}",
- *     @OA\Response(response="200", description="Output account by id"),
- *     @OA\Parameter(
-     *         description="ID of an account",
-     *         in="path",
-     *         name="id",
-     *         required=true,
-     *         @OA\Schema(
-     *           type="integer",
-     *           example=1
-     *         )
-     *     ),
+ * @OA\Get( path="/accounts/id/{id}", tags={"account"},
+ *     @OA\Parameter(type="integer", in="path", name="id"),
+ *     @OA\Response(response="200", description="Output all accounts")
  * )
  */
 Flight::route("GET /accounts/id/@id", function($id) {
@@ -48,19 +40,9 @@ Flight::route("GET /accounts/id/@id", function($id) {
 });
 
 /**
- * @OA\Get(
- *     path="/accounts/username/{username}",
- *     @OA\Response(response="200", description="Output account by username"),
- *     @OA\Parameter(
-     *         description="username of an account",
-     *         in="path",
-     *         name="username",
-     *         required=true,
-     *         @OA\Schema(
-     *           type="string",
-     *           example="nihad"
-     *         )
-     *     ),
+ * @OA\Get( path="/accounts/username/{username}", tags={"account"},
+ *     @OA\Parameter(type="string", in="path", name="username"),
+ *     @OA\Response(response="200", description="Output all accounts")
  * )
  */
 Flight::route("GET /accounts/username/@username", function($username) {
@@ -69,7 +51,7 @@ Flight::route("GET /accounts/username/@username", function($username) {
 
 /**
  * @OA\Post(
- *     path="/accounts/register/",
+ *     path="/accounts/register/", tags={"account"},
  *     @OA\Response(response="200", description="Add account")
  * )
  */
@@ -79,18 +61,9 @@ Flight::route("POST /accounts/register", function() {
 });
 
 /**
- * @OA\Put(
- *     path="/accounts/id/{id}",
- *     @OA\Response(response="200", description="Update account by id"),
- *     @OA\Parameter(
-     *         description="ID of an account",
-     *         in="path",
-     *         name="id",
-     *         required=true,
-     *         @OA\Schema(
-     *           type="integer"
-     *         )
-     *     ),
+ * @OA\Put( path="/accounts/id/{id}", tags={"account"},
+ *     @OA\Parameter(type="integer", in="path", name="id"),
+ *     @OA\Response(response="200", description="Output all accounts")
  * )
  */
 Flight::route("PUT /accounts/id/@id", function($id){
