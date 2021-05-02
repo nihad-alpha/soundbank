@@ -27,7 +27,7 @@ Flight::route("GET /accounts", function() {
 
 /**
  * @OA\Get(
- *     path="/accounts/{id}",
+ *     path="/accounts/id/{id}",
  *     @OA\Response(response="200", description="Output account by id"),
  *     @OA\Parameter(
      *         description="ID of an account",
@@ -45,15 +45,53 @@ Flight::route("GET /accounts/id/@id", function($id) {
     Flight::json(Flight::accountService()->get_by_id($id));
 });
 
+/**
+ * @OA\Get(
+ *     path="/accounts/username/{username}",
+ *     @OA\Response(response="200", description="Output account by username"),
+ *     @OA\Parameter(
+     *         description="username of an account",
+     *         in="path",
+     *         name="username",
+     *         required=true,
+     *         @OA\Schema(
+     *           type="string",
+     *           default="nihad"
+     *         )
+     *     ),
+ * )
+ */
 Flight::route("GET /accounts/username/@username", function($username) {
     Flight::json(Flight::accountService()->get_by_username($username));
 });
 
+/**
+ * @OA\Post(
+ *     path="/accounts/register/",
+ *     @OA\Response(response="200", description="Add account")
+ * )
+ */
 Flight::route("POST /accounts/register", function() {
     $request = Flight::request();
     Flight::accountService()->add($request->data->getData());
 });
 
+/**
+ * @OA\Put(
+ *     path="/accounts/id/{id}",
+ *     @OA\Response(response="200", description="Update account by id"),
+ *     @OA\Parameter(
+     *         description="ID of an account",
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(
+     *           type="integer",
+     *           default=1
+     *         )
+     *     ),
+ * )
+ */
 Flight::route("PUT /accounts/id/@id", function($id){
     $data = Flight::request()->data->getData();
     Flight::accountService()->update_by_id($id, $data);
