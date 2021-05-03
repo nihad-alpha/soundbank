@@ -36,11 +36,38 @@ Flight::route("GET /albums/name/@album_name", function($album_name) {
 });
 
 /**
- * @OA\Post(
- *     path="/albums", tags={"album"},
- *     @OA\Response(response="200", description="Add album")
- * )
- */
+* @OA\Post(
+*     path="/albums", 
+*     tags={"album"},
+*     @OA\RequestBody(
+*         required=true,
+*         @OA\MediaType(
+*             mediaType="application/json",
+*             @OA\Schema(
+*                 @OA\Property(
+*                     description="Name of the album",
+*                     property="album_name",
+*                     type="string",
+*                     example = "ALBUM_NAME_EXAMPLE"
+*                 ),
+*                 @OA\Property(
+*                     description="Genre of the album",
+*                     property="album_genre",
+*                     type="string",
+*                     example = "ALBUM_GENRE_EXAMPLE"
+*                 ),
+*                 @OA\Property(
+*                     description="ID of the artist of the album",
+*                     property="artist_id",
+*                     type="string",
+*                     example = 0
+*                 )
+*              )
+*        )
+*     ),
+*     @OA\Response(response="200", description="Add album")
+* )
+*/
 Flight::route("POST /albums", function() {
     $request = Flight::request();
     Flight::albumService()->add($request->data->getData());

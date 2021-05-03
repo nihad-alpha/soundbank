@@ -50,11 +50,38 @@ Flight::route("GET /accounts/username/@username", function($username) {
 });
 
 /**
- * @OA\Post(
- *     path="/accounts/register/", tags={"account"},
- *     @OA\Response(response="200", description="Add account")
- * )
- */
+* @OA\Post(
+*     path="/accounts/register/", 
+*     tags={"account"},
+*     @OA\RequestBody(
+*         required=true,
+*         @OA\MediaType(
+*             mediaType="application/json",
+*             @OA\Schema(
+*                 @OA\Property(
+*                     description="Username of the account",
+*                     property="username",
+*                     type="string",
+*                     example = "USERNAME_EXAMPLE"
+*                 ),
+*                 @OA\Property(
+*                     description="Password of the account",
+*                     property="password",
+*                     type="string",
+*                     example = "PASSWORD_EXAMPLE"
+*                 ),
+*                 @OA\Property(
+*                     description="Email of the account",
+*                     property="email",
+*                     type="string",
+*                     example = "EMAIL_EXAMPLE@DOMAIN.COM"
+*                 )
+*              )
+*        )
+*     ),
+*     @OA\Response(response="200", description="Add account")
+* )
+*/
 Flight::route("POST /accounts/register", function() {
     $request = Flight::request();
     Flight::accountService()->add($request->data->getData());

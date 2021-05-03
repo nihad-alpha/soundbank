@@ -26,11 +26,26 @@ Flight::route("GET /artists/id/@id", function($id) {
 });
 
 /**
- * @OA\Post(
- *     path="/artists", tags={"artist"},
- *     @OA\Response(response="200", description="Add artist")
- * )
- */
+* @OA\Post(
+*     path="/artists", 
+*     tags={"artist"},
+*     @OA\RequestBody(
+*         required=true,
+*         @OA\MediaType(
+*             mediaType="application/json",
+*             @OA\Schema(
+*                 @OA\Property(
+*                     description="Name of the artist",
+*                     property="artist_name",
+*                     type="string",
+*                     example = "ARTIST_NAME_EXAMPLE"
+*                 )
+*              )
+*        )
+*     ),
+*     @OA\Response(response="200", description="Add album")
+* )
+*/
 Flight::route("POST /artists", function() {
     $request = Flight::request();
     Flight::artistService()->add($request->data->getData());

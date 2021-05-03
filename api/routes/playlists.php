@@ -26,11 +26,32 @@ Flight::route("GET /playlists/id/@id", function($id) {
 });
 
 /**
- * @OA\Post(
- *     path="/playlists", tags={"playlist"},
- *     @OA\Response(response="200", description="Add artist")
- * )
- */
+* @OA\Post(
+*     path="/playlists", 
+*     tags={"playlist"},
+*     @OA\RequestBody(
+*         required=true,
+*         @OA\MediaType(
+*             mediaType="application/json",
+*             @OA\Schema(
+*                 @OA\Property(
+*                     description="Name of the playlist",
+*                     property="name",
+*                     type="string",
+*                     example = "PLAYLIST_NAME_EXAMPLE"
+*                 ),
+*                 @OA\Property(
+*                     description="Creator account id",
+*                     property="account_id",
+*                     type="integer",
+*                     example = 0
+*                 )
+*              )
+*        )
+*     ),
+*     @OA\Response(response="200", description="Add album")
+* )
+*/
 Flight::route("POST /playlists", function() {
     Flight::playlistService()->add(Flight::request()->data->getData());
 });

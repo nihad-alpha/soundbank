@@ -26,11 +26,38 @@ Flight::route("GET /songs/id/@id", function($id) {
 });
 
 /**
- * @OA\Post(
- *     path="/songs", tags={"song"},
- *     @OA\Response(response="200", description="Add song")
- * )
- */
+* @OA\Post(
+*     path="/songs", 
+*     tags={"song"},
+*     @OA\RequestBody(
+*         required=true,
+*         @OA\MediaType(
+*             mediaType="application/json",
+*             @OA\Schema(
+*                 @OA\Property(
+*                     description="Name of the song",
+*                     property="song_name",
+*                     type="string",
+*                     example = "SONG_NAME_EXAMPLE"
+*                 ),
+*                 @OA\Property(
+*                     description="Genre of the album",
+*                     property="song_genre",
+*                     type="string",
+*                     example = "SONG_GENRE_EXAMPLE"
+*                 ),
+*                 @OA\Property(
+*                     description="ID of the artist of the song",
+*                     property="artist_id",
+*                     type="string",
+*                     example = 0
+*                 )
+*              )
+*        )
+*     ),
+*     @OA\Response(response="200", description="Add album")
+* )
+*/
 Flight::route("POST /songs", function() {
     $request = Flight::request();
     Flight::songService()->add($request->data->getData());
