@@ -49,7 +49,7 @@ Flight::route("GET /songs/id/@id", function($id) {
 *                 @OA\Property(
 *                     description="ID of the artist of the song",
 *                     property="artist_id",
-*                     type="string",
+*                     type="integer",
 *                     example = 0
 *                 )
 *              )

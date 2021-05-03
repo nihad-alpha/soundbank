@@ -59,8 +59,14 @@ Flight::route("GET /albums/name/@album_name", function($album_name) {
 *                 @OA\Property(
 *                     description="ID of the artist of the album",
 *                     property="artist_id",
-*                     type="string",
+*                     type="integer",
 *                     example = 0
+*                 ),
+*                 @OA\Property(
+*                     description="ID of the album",
+*                     property="album_id",
+*                     type="integer",
+*                     example = NULL
 *                 )
 *              )
 *        )
