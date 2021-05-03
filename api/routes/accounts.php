@@ -14,10 +14,10 @@ error_reporting(E_ALL);
 
 /**
  * @OA\Get( path="/accounts", tags={"account"},
- *     @OA\Parameter(type="string", in="query", name="search", default=""),
- *     @OA\Parameter(type="integer", in="query", name="offset", default=0),
- *     @OA\Parameter(type="integer", in="query", name="limit", default=25),
- *     @OA\Response(response="200", description="Output all accounts")
+ *     @OA\Parameter(type="string", in="query", name="search", default=null, description="Parameter that allows searching through accounts."),
+ *     @OA\Parameter(type="integer", in="query", name="offset", default=0, description="Parameter that sets the starting position from which we start fetching accounts."),
+ *     @OA\Parameter(type="integer", in="query", name="limit", default=25, description="Parameter that limits how many accounts are fetched."),
+ *     @OA\Response(response="200", description="Fetch all accounts.")
  * )
  */
 Flight::route("GET /accounts", function() {
@@ -30,28 +30,18 @@ Flight::route("GET /accounts", function() {
 });
 
 /**
- * @OA\Get( path="/accounts/id/{id}", tags={"account"},
- *     @OA\Parameter(type="integer", in="path", name="id"),
- *     @OA\Response(response="200", description="Output all accounts")
+ * @OA\Get( path="/accounts/{id}", tags={"account"},
+ *     @OA\Parameter(type="integer", in="path", name="id", default=0, description="ID of the account you want to fetch."),
+ *     @OA\Response(response="200", description="Fetch an account by ID.")
  * )
  */
-Flight::route("GET /accounts/id/@id", function($id) {
+Flight::route("GET /accounts/@id", function($id) {
     Flight::json(Flight::accountService()->get_by_id($id));
 });
 
 /**
- * @OA\Get( path="/accounts/username/{username}", tags={"account"},
- *     @OA\Parameter(type="string", in="path", name="username"),
- *     @OA\Response(response="200", description="Output all accounts")
- * )
- */
-Flight::route("GET /accounts/username/@username", function($username) {
-    Flight::json(Flight::accountService()->get_by_username($username));
-});
-
-/**
 * @OA\Post(
-*     path="/accounts/register/", 
+*     path="/accounts", 
 *     tags={"account"},
 *     @OA\RequestBody(
 *         required=true,
@@ -79,21 +69,47 @@ Flight::route("GET /accounts/username/@username", function($username) {
 *              )
 *        )
 *     ),
-*     @OA\Response(response="200", description="Add account")
+*     @OA\Response(response="200", description="Add a new account.")
 * )
 */
-Flight::route("POST /accounts/register", function() {
+Flight::route("POST /accounts", function() {
     $request = Flight::request();
     Flight::accountService()->add($request->data->getData());
 });
 
 /**
- * @OA\Put( path="/accounts/id/{id}", tags={"account"},
- *     @OA\Parameter(type="integer", in="path", name="id"),
- *     @OA\Response(response="200", description="Output all accounts")
- * )
- */
-Flight::route("PUT /accounts/id/@id", function($id){
+* @OA\Put( path="/accounts/{id}", tags={"account"},
+*     @OA\Parameter(type="integer", in="path", name="id", default=0, description="ID of the account you want to update."),
+*     @OA\RequestBody(
+*         required=true,
+*         @OA\MediaType(
+*             mediaType="application/json",
+*             @OA\Schema(
+*                 @OA\Property(
+*                     description="Username of the account",
+*                     property="username",
+*                     type="string",
+*                     example = "USERNAME_EXAMPLE"
+*                 ),
+*                 @OA\Property(
+*                     description="Password of the account",
+*                     property="password",
+*                     type="string",
+*                     example = "PASSWORD_EXAMPLE"
+*                 ),
+*                 @OA\Property(
+*                     description="Email of the account",
+*                     property="email",
+*                     type="string",
+*                     example = "EMAIL_EXAMPLE@DOMAIN.COM"
+*                 )
+*              )
+*        )
+*     ),
+*     @OA\Response(response="200", description="Update an account by ID.")
+* )
+*/
+Flight::route("PUT /accounts/@id", function($id){
     $data = Flight::request()->data->getData();
     Flight::accountService()->update_by_id($id, $data);
     Flight::json(Flight::accountService()->get_by_id($id));
