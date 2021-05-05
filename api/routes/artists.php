@@ -36,7 +36,7 @@ Flight::route("GET /artists/@id", function($id) {
 *             @OA\Schema(
 *                 @OA\Property(
 *                     description="Name of the artist",
-*                     property="artist_name",
+*                     property="name",
 *                     type="string",
 *                     example = "ARTIST_NAME_EXAMPLE"
 *                 )
@@ -61,7 +61,7 @@ Flight::route("POST /artists", function() {
 *             @OA\Schema(
 *                 @OA\Property(
 *                     description="Name of the artist",
-*                     property="artist_name",
+*                     property="name",
 *                     type="string",
 *                     example = "ARTIST_NAME_EXAMPLE"
 *                 )

@@ -9,14 +9,14 @@ class ArtistService extends BaseService {
     }
 
     public function add($artist) {
-        if (!isset($artist['artist_name'])) throw new Exception("Artist name is missing!");
+        if (!isset($artist['name'])) throw new Exception("Artist name is missing!");
 
         return parent::add($artist);
     }
 
     public function get_artists($search, $offset, $limit) {
         if ($search) {
-            return $this->dao->search_artists($search, $offset, $limit);
+            return $this->dao->search_by_name($search, $offset, $limit);
         } else {
             return $this->dao->get_all($offset, $limit);
         }

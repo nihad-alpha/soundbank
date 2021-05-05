@@ -10,7 +10,7 @@ class SongService extends BaseService{
     }
     
     public function add($song) {
-        if (!isset($song['song_name'])) throw new Exception("Song name is missing!");
+        if (!isset($song['name'])) throw new Exception("Song name is missing!");
         if (!isset($song['song_genre'])) throw new Exception("Song genre is missing!");
         if (!isset($song['artist_id'])) throw new Exception("Artist ID is missing!");
 
@@ -23,7 +23,7 @@ class SongService extends BaseService{
     // Searching songs by name.
     public function get_songs($search, $offset, $limit) {
         if ($search) {
-            return $this->dao->search_songs($search, $offset, $limit);
+            return $this->dao->search_by_name($search, $offset, $limit);
         } else {
             return $this->dao->get_all($offset, $limit);
         }

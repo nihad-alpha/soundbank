@@ -21,7 +21,7 @@ class PlaylistService extends BaseService {
 
     public function get_playlists($search, $offset, $limit) {
         if ($search) {
-            return $this->dao->search_playlists($search, $offset, $limit);
+            return $this->dao->search_by_name($search, $offset, $limit);
         } else {
             return $this->dao->get_all($offset, $limit);
         }

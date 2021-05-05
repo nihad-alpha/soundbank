@@ -36,7 +36,7 @@ Flight::route("GET /albums/@id", function($id) {
 *             @OA\Schema(
 *                 @OA\Property(
 *                     description="Name of the album",
-*                     property="album_name",
+*                     property="name",
 *                     type="string",
 *                     example = "ALBUM_NAME_EXAMPLE"
 *                 ),
@@ -51,12 +51,6 @@ Flight::route("GET /albums/@id", function($id) {
 *                     property="artist_id",
 *                     type="integer",
 *                     example = 0
-*                 ),
-*                 @OA\Property(
-*                     description="ID of the album",
-*                     property="album_id",
-*                     type="integer",
-*                     example = NULL
 *                 )
 *              )
 *        )
@@ -79,7 +73,7 @@ Flight::route("POST /albums", function() {
 *             @OA\Schema(
 *                 @OA\Property(
 *                     description="Name of the album",
-*                     property="album_name",
+*                     property="name",
 *                     type="string",
 *                     example = "ALBUM_NAME_EXAMPLE"
 *                 ),

@@ -10,6 +10,7 @@ class BaseService {
     }
 
     public function get_by_id($id) {
+        if (empty($this->dao->get_by_id($id))) throw new Exception("It doesn't exist!");
         return $this->dao->get_by_id($id);
     }
 
@@ -19,6 +20,10 @@ class BaseService {
 
     public function update_by_id($id, $params) {
         $this->dao->update_by_id($id, $params);
+    }
+
+    public function search_by_name($search, $offset, $limit) {
+        return $this->dao->search_by_name($search, $offset, $limit);
     }
 }
 ?>

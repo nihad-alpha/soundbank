@@ -15,7 +15,7 @@ class AccountService extends BaseService {
 
     public function get_accounts($search, $offset, $limit) {
         if ($search) {
-            return $this->dao->search_accounts($search, $offset, $limit);
+            return $this->dao->search_by_name($search, $offset, $limit);
         } else {
             return $this->dao->get_all($offset, $limit);
         }

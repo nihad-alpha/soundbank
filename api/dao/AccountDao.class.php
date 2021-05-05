@@ -12,18 +12,6 @@ class AccountDao extends BaseDao {
         parent::__construct("accounts");
     }
 
-    // Searching accounts by name.
-    public function search_accounts($search, $offset, $limit) {
-        return $this->query("SELECT * FROM accounts 
-                             WHERE LOWER(name) LIKE CONCAT('%', :name, '%') 
-                             LIMIT ${limit} OFFSET ${offset}", ["name" => strtolower($search)]);
-    }
-
-    // Getting an account by id.
-    public function get_by_id($id) {
-        return $this->query_unique("SELECT * FROM accounts WHERE account_id = :id", ["id" => $id]);
-    }
-
     // Getting an account by email.
     public function get_by_email($email) {
         return $this->query_unique("SELECT * FROM accounts WHERE email = :email", ["email" => $email]);
@@ -32,11 +20,6 @@ class AccountDao extends BaseDao {
     // Getting an account by username.
     public function get_by_username($username) {
         return $this->query_unique("SELECT * FROM accounts WHERE username = :username", ["username" => $username]);
-    }
-
-    // Updating an account by an id.
-    public function update_by_id($id, $params) {
-        $this->update("accounts", "account_id", $id, $params);
     }
 
     // Updating an account by an email.

@@ -84,4 +84,22 @@ require_once dirname(__FILE__)."/../config.php";
         public function get_all($offset = 0, $limit = 25) {
             return $this->query("SELECT * FROM ". $this->_table . " LIMIT ${limit} OFFSET ${offset}", []);
         }
+
+        // Getting an entity by an id.
+        public function get_by_id($id) {
+            return $this->query_unique("SELECT * FROM " . $this->_table . " WHERE id = :id", ["id" => $id]);
+        }
+
+        // Searching by name.
+        public function search_by_name($search, $offset, $limit) {
+            return $this->query("SELECT * FROM ". $this->_table . " 
+                                WHERE LOWER(name) LIKE CONCAT('%', :name,'%') 
+                                LIMIT ${limit} OFFSET ${offset}", ["name" => strtolower($search)]);
+        }
+
+        // Updating an entity by an id.
+        public function update_by_id($id, $params) {
+            $this->update($this->_table, "id", $id, $params);
+        }
     }
+?>

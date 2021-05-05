@@ -9,7 +9,7 @@ class AlbumService extends BaseService {
     }
 
     public function add($album) {
-        if (!isset($album['album_name'])) throw new Exception("Album name is missing!");
+        if (!isset($album['name'])) throw new Exception("Album name is missing!");
         if (!isset($album['album_genre'])) throw new Exception("Album name is missing!");
         if (!isset($album['artist_id'])) throw new Exception("Artist is missing!");
 
@@ -21,7 +21,7 @@ class AlbumService extends BaseService {
 
     public function get_albums($search, $offset, $limit) {
         if ($search) {
-            return $this->dao->search_albums($search, $offset, $limit);
+            return $this->dao->search_by_name($search, $offset, $limit);
         } else {
             return $this->dao->get_all($offset, $limit);
         }
