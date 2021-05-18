@@ -35,18 +35,24 @@ class AccountService extends BaseService {
         if (!isset($account["password"])) throw new Exception("Password is missing!");
 
         try {
+            $this->dao->beginTransaction();
+            
             $new_account = parent::add([
                 "email" => $account["email"],
                 "username" => $account["username"],
                 "password" => $account["password"],
                 "account_type_id" => 2,
+                "status" => "PENDING",
                 "token" => md5(random_bytes(16))
-            ]);
-
-            return $new_account;
+            ]);   
+            
+            $this->dao->commit();
         } catch (\Exception $e) {
+            $this->dao->rollBack();
             throw $e;
         }
+        // TO DO: send an email with a token to activate account
+        return $new_account;
     }
 
     public function get_by_username($username) {

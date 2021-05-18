@@ -11,6 +11,20 @@ require_once dirname(__FILE__)."/../config.php";
         protected $connection;
         private $_table;
 
+        public function beginTransaction() {
+            $this->connection->beginTransaction();
+            $this->connection->setAttribute(PDO::ATTR_AUTOCOMMIT, 0);
+        }
+
+        public function commit() {
+            $this->connection->commit();
+            $this->connection->setAttribute(PDO::ATTR_AUTOCOMMIT, 1);
+        }
+
+        public function rollBack() {
+            $this->connection->rollBack();
+        }
+
         public static function parse_order($order) {
             switch(substr($order, 0, 1)) {
                 case '-':
