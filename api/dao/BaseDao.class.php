@@ -11,6 +11,25 @@ require_once dirname(__FILE__)."/../config.php";
         protected $connection;
         private $_table;
 
+        public static function parse_order($order) {
+            switch(substr($order, 0, 1)) {
+                case '-':
+                    $order_direction = "ASC";
+                    break;
+                case '+':
+                    $order_direction = "DESC";
+                    break;
+                default: 
+                    throw new Exception("Invalid order argument. - or + need to be used.");
+            }
+
+            $order_column = substr($order, 1);
+            // Investigate SQL injection
+            //$order_column = $this->connection->quote(substr($order, 1));
+
+            return [$order_column, $order_direction];
+        }
+
         protected function __construct($_table) {
             $this->_table = $_table;
             try {
@@ -81,8 +100,10 @@ require_once dirname(__FILE__)."/../config.php";
         }
 
         // Getting all data from a table in the database using offset and limit.
-        public function get_all($offset = 0, $limit = 25) {
-            return $this->query("SELECT * FROM ". $this->_table . " LIMIT ${limit} OFFSET ${offset}", []);
+        public function get_all($offset = 0, $limit = 25, $order = "-id") {
+            list($order_column, $order_direction) = self::parse_order($order);
+            
+            return $this->query("SELECT * FROM ". $this->_table . " ORDER BY ". $order_column . " " . $order_direction . " LIMIT ${limit} OFFSET ${offset}", []);
         }
 
         // Getting an entity by an id.
@@ -91,9 +112,12 @@ require_once dirname(__FILE__)."/../config.php";
         }
 
         // Searching by name.
-        public function search_by_name($search, $offset, $limit) {
+        public function search_by_name($search, $offset = 0, $limit = 25, $order = "-id") {
+            list($order_column, $order_direction) = self::parse_order($order);
+            
             return $this->query("SELECT * FROM ". $this->_table . " 
                                 WHERE LOWER(name) LIKE CONCAT('%', :name,'%') 
+                                ORDER BY ". $order_column . " " . $order_direction. "
                                 LIMIT ${limit} OFFSET ${offset}", ["name" => strtolower($search)]);
         }
 

@@ -4,6 +4,7 @@
  *     @OA\Parameter(type="string", in="query", name="search", default=null, description="Parameter that allows searching through artists."),
  *     @OA\Parameter(type="integer", in="query", name="offset", default=0, description="Parameter that sets the starting position from which we start fetching artists."),
  *     @OA\Parameter(type="integer", in="query", name="limit", default=25, description="Parameter that limits how many artists are fetched."),
+ *     @OA\Parameter(type="string", in="query", name="order", default="-id", description="Parameter that defines order."),
  *     @OA\Response(response="200", description="Fetch all artists.")
  * )
  */
@@ -11,8 +12,9 @@ Flight::route("GET /artists", function() {
     $search = Flight::query('search');
     $offset = Flight::query('offset', 0);
     $limit = Flight::query('limit', 25);
+    $order = Flight::query('order');
 
-    Flight::json(Flight::artistService()->get_artists($search, $offset, $limit));
+    Flight::json(Flight::artistService()->get_artists($search, $offset, $limit, $order));
 });
 
 /**

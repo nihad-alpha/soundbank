@@ -17,6 +17,7 @@ error_reporting(E_ALL);
  *     @OA\Parameter(type="string", in="query", name="search", default=null, description="Parameter that allows searching through accounts."),
  *     @OA\Parameter(type="integer", in="query", name="offset", default=0, description="Parameter that sets the starting position from which we start fetching accounts."),
  *     @OA\Parameter(type="integer", in="query", name="limit", default=25, description="Parameter that limits how many accounts are fetched."),
+ *     @OA\Parameter(type="string", in="query", name="order", default="-id", description="Parameter that defines order."),
  *     @OA\Response(response="200", description="Fetch all accounts.")
  * )
  */
@@ -24,11 +25,85 @@ Flight::route("GET /accounts", function() {
     $search = Flight::query('search');
     $offset = Flight::query('offset', 0);
     $limit = Flight::query('limit', 25);
+    $order = Flight::query('order');
     
-    Flight::json(Flight::accountService()->get_accounts($search, $offset, $limit));
+    Flight::json(Flight::accountService()->get_accounts($search, $offset, $limit, $order));
     
 });
 
+/**
+* @OA\Post(
+*     path="/accounts/login", 
+*     tags={"account"},
+*     @OA\RequestBody(
+*         required=true,
+*         @OA\MediaType(
+*             mediaType="application/json",
+*             @OA\Schema(
+*                 @OA\Property(
+*                     description="Username of the account",
+*                     property="username",
+*                     type="string",
+*                     example = "USERNAME_EXAMPLE"
+*                 ),
+*                 @OA\Property(
+*                     description="Password of the account",
+*                     property="password",
+*                     type="string",
+*                     example = "PASSWORD_EXAMPLE"
+*                 ),
+*                 @OA\Property(
+*                     description="Email of the account",
+*                     property="email",
+*                     type="string",
+*                     example = "EMAIL_EXAMPLE@DOMAIN.COM"
+*                 )
+*              )
+*        )
+*     ),
+*     @OA\Response(response="200", description="Add a new account.")
+* )
+*/
+Flight::route("POST /accounts/login", function () {
+    
+});
+
+/**
+* @OA\Post(
+*     path="/accounts/register", 
+*     tags={"account"},
+*     @OA\RequestBody(
+*         required=true,
+*         @OA\MediaType(
+*             mediaType="application/json",
+*             @OA\Schema(
+*                 @OA\Property(
+*                     description="Username of the account",
+*                     property="username",
+*                     type="string",
+*                     example = "USERNAME_EXAMPLE"
+*                 ),
+*                 @OA\Property(
+*                     description="Password of the account",
+*                     property="password",
+*                     type="string",
+*                     example = "PASSWORD_EXAMPLE"
+*                 ),
+*                 @OA\Property(
+*                     description="Email of the account",
+*                     property="email",
+*                     type="string",
+*                     example = "EMAIL_EXAMPLE@DOMAIN.COM"
+*                 )
+*              )
+*        )
+*     ),
+*     @OA\Response(response="200", description="Add a new account.")
+* )
+*/
+Flight::route("POST /accounts/register", function() {
+    Flight::accountService()->register(Flight::request()->data->getData());
+});
 /**
  * @OA\Get( path="/accounts/{id}", tags={"account"},
  *     @OA\Parameter(type="integer", in="path", name="id", default=0, description="ID of the account you want to fetch."),

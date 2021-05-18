@@ -21,11 +21,11 @@ class SongService extends BaseService{
     }
 
     // Searching songs by name.
-    public function get_songs($search, $offset, $limit) {
+    public function get_songs($search, $offset, $limit, $order) {
         if ($search) {
-            return $this->dao->search_by_name($search, $offset, $limit);
+            return $this->dao->search_by_name($search, $offset, $limit, $order);
         } else {
-            return $this->dao->get_all($offset, $limit);
+            return $this->dao->get_all($offset, $limit, $order);
         }
     }
 

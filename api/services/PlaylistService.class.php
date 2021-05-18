@@ -19,11 +19,11 @@ class PlaylistService extends BaseService {
         return parent::add($playlist);
     }
 
-    public function get_playlists($search, $offset, $limit) {
+    public function get_playlists($search, $offset, $limit, $order) {
         if ($search) {
-            return $this->dao->search_by_name($search, $offset, $limit);
+            return $this->dao->search_by_name($search, $offset, $limit, $order);
         } else {
-            return $this->dao->get_all($offset, $limit);
+            return $this->dao->get_all($offset, $limit, $order);
         }
     }
 }

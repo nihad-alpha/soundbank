@@ -22,8 +22,8 @@ class BaseService {
         $this->dao->update_by_id($id, $params);
     }
 
-    public function search_by_name($search, $offset, $limit) {
-        return $this->dao->search_by_name($search, $offset, $limit);
+    public function search_by_name($search, $offset, $limit, $order) {
+        return $this->dao->search_by_name($search, $offset, $limit, $order);
     }
 }
 ?>
