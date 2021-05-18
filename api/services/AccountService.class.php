@@ -29,6 +29,26 @@ class AccountService extends BaseService {
         return parent::add($account);
     }
 
+    public function register($account) {
+        if (!isset($account["email"])) throw new Exception("Email is missing!");
+        if (!isset($account["username"])) throw new Exception("Username is missing!");
+        if (!isset($account["password"])) throw new Exception("Password is missing!");
+
+        try {
+            $new_account = parent::add([
+                "email" => $account["email"],
+                "username" => $account["username"],
+                "password" => $account["password"],
+                "account_type_id" => 2,
+                "token" => md5(random_bytes(16))
+            ]);
+
+            return $new_account;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
     public function get_by_username($username) {
         return $this->dao->get_by_username($username);
     }

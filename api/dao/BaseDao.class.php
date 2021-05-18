@@ -57,6 +57,7 @@ require_once dirname(__FILE__)."/../config.php";
 
                 $this->connection->prepare($query)->execute($params);
                 $params['id'] = $this->connection->lastInsertId();
+                
                 return $params;
             }
             catch (Exception $e) {
@@ -66,7 +67,7 @@ require_once dirname(__FILE__)."/../config.php";
 
         // Inserting function allowed publicly.
         public function add($params) {
-            $this->insert($this->_table, $params);
+            return $this->insert($this->_table, $params);
         }
 
         // Updating.

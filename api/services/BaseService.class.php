@@ -15,7 +15,7 @@ class BaseService {
     }
 
     public function add($params) {
-        $this->dao->add($params);
+        return $this->dao->add($params);
     }
 
     public function update_by_id($id, $params) {

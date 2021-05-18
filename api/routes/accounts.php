@@ -33,43 +33,6 @@ Flight::route("GET /accounts", function() {
 
 /**
 * @OA\Post(
-*     path="/accounts/login", 
-*     tags={"account"},
-*     @OA\RequestBody(
-*         required=true,
-*         @OA\MediaType(
-*             mediaType="application/json",
-*             @OA\Schema(
-*                 @OA\Property(
-*                     description="Username of the account",
-*                     property="username",
-*                     type="string",
-*                     example = "USERNAME_EXAMPLE"
-*                 ),
-*                 @OA\Property(
-*                     description="Password of the account",
-*                     property="password",
-*                     type="string",
-*                     example = "PASSWORD_EXAMPLE"
-*                 ),
-*                 @OA\Property(
-*                     description="Email of the account",
-*                     property="email",
-*                     type="string",
-*                     example = "EMAIL_EXAMPLE@DOMAIN.COM"
-*                 )
-*              )
-*        )
-*     ),
-*     @OA\Response(response="200", description="Add a new account.")
-* )
-*/
-Flight::route("POST /accounts/login", function () {
-    
-});
-
-/**
-* @OA\Post(
 *     path="/accounts/register", 
 *     tags={"account"},
 *     @OA\RequestBody(
@@ -102,8 +65,9 @@ Flight::route("POST /accounts/login", function () {
 * )
 */
 Flight::route("POST /accounts/register", function() {
-    Flight::accountService()->register(Flight::request()->data->getData());
+    Flight::json(Flight::accountService()->register(Flight::request()->data->getData()));
 });
+
 /**
  * @OA\Get( path="/accounts/{id}", tags={"account"},
  *     @OA\Parameter(type="integer", in="path", name="id", default=0, description="ID of the account you want to fetch."),

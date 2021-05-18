@@ -21,5 +21,6 @@ class ArtistService extends BaseService {
             return $this->dao->get_all($offset, $limit, $order);
         }
     }
+
 } 
 ?>
