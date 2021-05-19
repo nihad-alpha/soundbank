@@ -159,6 +159,27 @@ Flight::route("POST /accounts/reset", function() {
     Flight::json(["message" => "You have successfully reset your account password"]);
 });
 
+/**
+* @OA\Post(
+*     path="/accounts/confirm/{token}", 
+*     tags={"account"},
+*     @OA\RequestBody(
+*         required=true,
+*         @OA\MediaType(
+*             mediaType="application/json",
+*             @OA\Schema(
+*                 @OA\Property(
+*                     description="Token of the account",
+*                     property="token",
+*                     type="string",
+*                     example = "iamatokenguesswhatiam"
+*                 )
+*              )
+*        )
+*     ),
+*     @OA\Response(response="200", description="Confirm an account via token")
+* )
+*/
 Flight::route("GET /accounts/confirm/@token", function($token) {
     Flight::accountService()->confirm($token);
     Flight::json(["message" => "Your account has been confirmed."]);
