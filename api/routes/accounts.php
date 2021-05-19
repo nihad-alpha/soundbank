@@ -127,6 +127,38 @@ Flight::route("POST /accounts/forgot", function() {
     Flight::json(["message" => "Email with the recovery link has been sent!"]);
 });
 
+/**
+* @OA\Post(
+*     path="/accounts/reset", 
+*     tags={"account"},
+*     @OA\RequestBody(
+*         required=true,
+*         @OA\MediaType(
+*             mediaType="application/json",
+*             @OA\Schema(
+*                 @OA\Property(
+*                     description="Token of the account",
+*                     property="token",
+*                     type="string",
+*                     example = "iamatokenguesswhatiam"
+*                 ),
+*                 @OA\Property(
+*                     description="New password for the account",
+*                     property="password",
+*                     type="string",
+*                     example = "PASSWORD_EXAMPLE"
+*                 )
+*              )
+*        )
+*     ),
+*     @OA\Response(response="200", description="Reset a password of an account.")
+* )
+*/
+Flight::route("POST /accounts/reset", function() {
+    Flight::accountService()->reset(Flight::request()->data->getData());
+    Flight::json(["message" => "You have successfully reset your account password"]);
+});
+
 Flight::route("GET /accounts/confirm/@token", function($token) {
     Flight::accountService()->confirm($token);
     Flight::json(["message" => "Your account has been confirmed."]);

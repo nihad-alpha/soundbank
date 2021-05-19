@@ -34,6 +34,7 @@ class AccountService extends BaseService {
     }
 
     public function forgot($account) {
+        if (!isset($account['email'])) throw new Exception("Email is missing!");
         $account_from_db = $this->dao->get_by_email($account['email']);
 
         if (!isset($account_from_db['id'])) throw new Exception("Account does not exist!");
@@ -41,6 +42,21 @@ class AccountService extends BaseService {
         $account_from_db = $this->dao->update_by_id($account_from_db['id'], ['token' => md5(random_bytes(16))]); 
 
         $this->smtpClient->send_recovery_account_token($account_from_db);
+    }
+
+    public function reset($account) {
+
+        if (!isset($account['token'])) throw new Exception("Token is missing!");
+        if (!isset($account['password'])) throw new Exception("New password is missing!");
+
+        $account_from_db = $this->dao->get_By_token($account['token']);
+
+        if (!isset($account_from_db['id'])) throw new Exception("Account does not exist!");
+
+        //update password
+        $account_from_db = $this->dao->update_by_id($account_from_db['id'], ['password' => password_hash($account['password'], PASSWORD_DEFAULT)]);
+
+        return $account_from_db;
     }
 
     public function login($account) {
