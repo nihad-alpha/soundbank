@@ -54,8 +54,7 @@ class AccountService extends BaseService {
         if (!isset($account_from_db['id'])) throw new Exception("Account does not exist!");
 
         //update password
-        $account_from_db = $this->dao->update_by_id($account_from_db['id'], ['password' => password_hash($account['password'], PASSWORD_DEFAULT)]);
-
+        $account_from_db = $this->dao->update_by_id($account_from_db['id'], ['password' => password_hash($account['password'], PASSWORD_DEFAULT), 'token' => null]);
         return $account_from_db;
     }
 
@@ -122,7 +121,7 @@ class AccountService extends BaseService {
 
         if (!isset($account["id"])) throw new Exception("Account not found!");
 
-        $this->dao->update_by_id($account["id"], ["status" => "ACTIVE"]);   
+        $this->dao->update_by_id($account["id"], ["status" => "ACTIVE", "token" => null]);   
         // TO DO: Send an email to the account that the account is confirmed!
     }
 
