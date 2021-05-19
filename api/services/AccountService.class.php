@@ -39,7 +39,12 @@ class AccountService extends BaseService {
         if (!isset($account['password'])) throw new Exception("Password missing!");
 
         $account_from_db = $this->dao->get_by_email($account['email']);
+
         if (!isset($account_from_db['id'])) throw new Exception("That account does not exist!");
+
+        // If the account hasn't activated their account by clicking on the confirmation link, his status will not be ACTIVE.
+        if ($account_from_db['status'] != "ACTIVE") throw new Exception("Please, activate your account first. You should have recieved a confirmation email!");
+
         // We hashed the password using password_hash method from PHP
         // password_verify will now reverse the hash and check to see if our password is correct.
         
@@ -49,6 +54,7 @@ class AccountService extends BaseService {
         } else {
             throw new Exception("Password is incorrect!");
         }
+
         return $account_from_db;
     }
 

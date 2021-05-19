@@ -97,7 +97,7 @@ Flight::route("POST /accounts/register", function() {
 * )
 */
 Flight::route("POST /accounts/login", function() {
-    Flight::accountService()->login(Flight::request()->data->getData());
+    Flight::json(Flight::accountService()->login(Flight::request()->data->getData()));
     Flight::json(["message" => "You have successfully logged in."]);
 });
 
