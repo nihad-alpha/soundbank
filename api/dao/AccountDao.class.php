@@ -22,6 +22,10 @@ class AccountDao extends BaseDao {
         return $this->query_unique("SELECT * FROM accounts WHERE username = :username", ["username" => $username]);
     }
 
+    public function get_by_token($token) {
+        return $this->query_unique("SELECT * FROM accounts WHERE token = :token", ["token" => $token]);
+    }
+
     // Updating an account by an email.
     public function update_by_email($email, $params) {
         $this->update("accounts", "email", $email, $params);

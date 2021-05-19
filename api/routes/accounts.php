@@ -68,6 +68,11 @@ Flight::route("POST /accounts/register", function() {
     Flight::json(Flight::accountService()->register(Flight::request()->data->getData()));
 });
 
+Flight::route("GET /accounts/confirm/@token", function($token) {
+    Flight::accountService()->confirm($token);
+    Flight::json(["message" => "Account with token ${token} is confirmed."]);
+});
+
 /**
  * @OA\Get( path="/accounts/{id}", tags={"account"},
  *     @OA\Parameter(type="integer", in="path", name="id", default=0, description="ID of the account you want to fetch."),

@@ -51,12 +51,25 @@ class AccountService extends BaseService {
             $this->dao->rollBack();
             throw $e;
         }
-        // TO DO: send an email with a token to activate account
+        // TO DO: Send an email with a token inside to the account to confirm the account!
         return $new_account;
+    }
+
+    public function confirm($token) {
+        $account = $this->dao->get_by_token($token);
+
+        if (!isset($account["id"])) throw new Exception("Account not found!");
+
+        $this->dao->update_by_id($account["id"], ["status" => "ACTIVE"]);   
+        // TO DO: Send an email to the account that the account is confirmed!
     }
 
     public function get_by_username($username) {
         return $this->dao->get_by_username($username);
+    }
+
+    public function get_by_token($token) {
+        return $this->dao->get_by_token($token);
     }
 
     public function get_by_email($email) {
