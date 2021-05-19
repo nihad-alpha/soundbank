@@ -139,6 +139,7 @@ require_once dirname(__FILE__)."/../config.php";
         // Updating an entity by an id.
         public function update_by_id($id, $params) {
             $this->update($this->_table, "id", $id, $params);
+            return $this->get_by_id($id);
         }
     }
 ?>

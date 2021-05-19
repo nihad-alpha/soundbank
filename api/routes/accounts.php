@@ -101,6 +101,32 @@ Flight::route("POST /accounts/login", function() {
     Flight::json(["message" => "You have successfully logged in."]);
 });
 
+/**
+* @OA\Post(
+*     path="/accounts/forgot", 
+*     tags={"account"},
+*     @OA\RequestBody(
+*         required=true,
+*         @OA\MediaType(
+*             mediaType="application/json",
+*             @OA\Schema(
+*                 @OA\Property(
+*                     description="Email of the account",
+*                     property="email",
+*                     type="string",
+*                     example = "EMAIL"
+*                 )
+*              )
+*        )
+*     ),
+*     @OA\Response(response="200", description="Add a new account.")
+* )
+*/
+Flight::route("POST /accounts/forgot", function() {
+    Flight::accountService()->forgot(Flight::request()->data->getData());
+    Flight::json(["message" => "Email with the recovery link has been sent!"]);
+});
+
 Flight::route("GET /accounts/confirm/@token", function($token) {
     Flight::accountService()->confirm($token);
     Flight::json(["message" => "Your account has been confirmed."]);

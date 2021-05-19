@@ -33,6 +33,16 @@ class AccountService extends BaseService {
         return parent::add($account);
     }
 
+    public function forgot($account) {
+        $account_from_db = $this->dao->get_by_email($account['email']);
+
+        if (!isset($account_from_db['id'])) throw new Exception("Account does not exist!");
+
+        $account_from_db = $this->dao->update_by_id($account_from_db['id'], ['token' => md5(random_bytes(16))]); 
+
+        $this->smtpClient->send_recovery_account_token($account_from_db);
+    }
+
     public function login($account) {
         // Check if the email and password have been entered.
         if (!isset($account['email'])) throw new Exception("Email missing!");

@@ -19,7 +19,7 @@ class BaseService {
     }
 
     public function update_by_id($id, $params) {
-        $this->dao->update_by_id($id, $params);
+        return $this->dao->update_by_id($id, $params);
     }
 
     public function search_by_name($search, $offset, $limit, $order) {
