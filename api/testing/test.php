@@ -5,6 +5,11 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 require_once dirname(__FILE__).'/../../vendor/autoload.php';
 
+/* 
+  I used MailGun here, but you can also use Gmail SMTP Server.
+  Google how to configure it!
+*/
+
 // Create the Transport
 $transport = (new Swift_SmtpTransport('smtp.mailgun.org', 587))
   ->setUsername('postmaster@soundbank.games')

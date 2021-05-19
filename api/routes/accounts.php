@@ -65,12 +65,45 @@ Flight::route("GET /accounts", function() {
 * )
 */
 Flight::route("POST /accounts/register", function() {
-    Flight::json(Flight::accountService()->register(Flight::request()->data->getData()));
+    Flight::accountService()->register(Flight::request()->data->getData());
+    Flight::json(["message" => "Please, check your email to confirm your account"]);
+});
+
+/**
+* @OA\Post(
+*     path="/accounts/login", 
+*     tags={"account"},
+*     @OA\RequestBody(
+*         required=true,
+*         @OA\MediaType(
+*             mediaType="application/json",
+*             @OA\Schema(
+*                 @OA\Property(
+*                     description="Email of the account",
+*                     property="email",
+*                     type="string",
+*                     example = "EMAIL"
+*                 ),
+*                 @OA\Property(
+*                     description="Password of the account",
+*                     property="password",
+*                     type="string",
+*                     example = "PASSWORD_EXAMPLE"
+*                 )
+*              )
+*        )
+*     ),
+*     @OA\Response(response="200", description="Add a new account.")
+* )
+*/
+Flight::route("POST /accounts/login", function() {
+    Flight::accountService()->login(Flight::request()->data->getData());
+    Flight::json(["message" => "You have successfully logged in."]);
 });
 
 Flight::route("GET /accounts/confirm/@token", function($token) {
     Flight::accountService()->confirm($token);
-    Flight::json(["message" => "Account with token ${token} is confirmed."]);
+    Flight::json(["message" => "Your account has been confirmed."]);
 });
 
 /**
