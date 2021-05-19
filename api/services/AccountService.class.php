@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 
 require_once dirname(__FILE__)."/../dao/AccountDao.class.php";
 require_once dirname(__FILE__)."/BaseService.class.php";
+require_once dirname(__FILE__)."/../config.php";
 
 require_once dirname(__FILE__)."/../clients/SMTPClient.class.php";
 
@@ -29,6 +30,7 @@ class AccountService extends BaseService {
         if (!isset($account['username'])) throw new Exception("Username is missing!");
         if (!isset($account['password'])) throw new Exception("Password is missing!");
         if (!isset($account['email'])) throw new Exception("Email is missing!");
+        $account += ["created_at" => date(Config::DATE_FORMAT)];
 
         return parent::add($account);
     }
@@ -39,7 +41,10 @@ class AccountService extends BaseService {
 
         if (!isset($account_from_db['id'])) throw new Exception("Account does not exist!");
 
-        $account_from_db = $this->dao->update_by_id($account_from_db['id'], ['token' => md5(random_bytes(16))]); 
+        // To prevent hacking attempts using DDoS, a token can't be generated until 5 minutes after the generation of the previous one.
+        if (strtotime(date(Config::DATE_FORMAT)) - strtotime($account_from_db['token_created_at']) < 300) throw new Exception("Are you trying to DDoS me, dumbass? Please, wait for a few minutes to generate a new token.");
+
+        $account_from_db = $this->dao->update_by_id($account_from_db['id'], ['token' => md5(random_bytes(16)), 'token_created_at' => date(Config::DATE_FORMAT)]); 
 
         $this->smtpClient->send_recovery_account_token($account_from_db);
     }
@@ -50,6 +55,9 @@ class AccountService extends BaseService {
         if (!isset($account['password'])) throw new Exception("New password is missing!");
 
         $account_from_db = $this->dao->get_By_token($account['token']);
+
+        // To prevent hackers stealing this token, it expires after 3 minutes.
+        if (strtotime(date(Config::DATE_FORMAT)) - strtotime($account_from_db['token_created_at']) > 180) throw new Exception("Token has expired.");
 
         if (!isset($account_from_db['id'])) throw new Exception("Account does not exist!");
 
@@ -100,7 +108,8 @@ class AccountService extends BaseService {
                 "password" => $hashed_password,
                 "account_type_id" => 2,
                 "status" => "PENDING",
-                "token" => md5(random_bytes(16))
+                "token" => md5(random_bytes(16)),
+                "created_at" => date(Config::DATE_FORMAT)
             ];   
             parent::add($new_account);
 
