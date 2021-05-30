@@ -4,10 +4,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+use Firebase\JWT\JWT;
+
 require_once dirname(__FILE__)."/../dao/AccountDao.class.php";
 require_once dirname(__FILE__)."/BaseService.class.php";
 require_once dirname(__FILE__)."/../config.php";
-
 require_once dirname(__FILE__)."/../clients/SMTPClient.class.php";
 
 class AccountService extends BaseService {
@@ -27,9 +28,13 @@ class AccountService extends BaseService {
     }
 
     public function add($account) {
+
         if (!isset($account['username'])) throw new Exception("Username is missing!");
         if (!isset($account['password'])) throw new Exception("Password is missing!");
         if (!isset($account['email'])) throw new Exception("Email is missing!");
+
+        $account['password'] = password_hash($account['password'], PASSWORD_DEFAULT);
+        // Append to the account object when the user was created, the exact moment.
         $account += ["created_at" => date(Config::DATE_FORMAT)];
 
         return parent::add($account);
@@ -54,7 +59,7 @@ class AccountService extends BaseService {
         if (!isset($account['token'])) throw new Exception("Token is missing!");
         if (!isset($account['password'])) throw new Exception("New password is missing!");
 
-        $account_from_db = $this->dao->get_By_token($account['token']);
+        $account_from_db = $this->dao->get_by_token($account['token']);
 
         // To prevent hackers stealing this token, it expires after 3 minutes.
         if (strtotime(date(Config::DATE_FORMAT)) - strtotime($account_from_db['token_created_at']) > 180) throw new Exception("Token has expired.");
@@ -82,13 +87,13 @@ class AccountService extends BaseService {
         // password_verify will now reverse the hash and check to see if our password is correct.
         
         $password_from_db = $account_from_db['password'];
-        if (password_verify($account['password'], $password_from_db)) {
-            Flight::json(["message" => "Password validated!"]);
-        } else {
+        if (!password_verify($account['password'], $password_from_db)) {
             throw new Exception("Password is incorrect!");
         }
 
-        return $account_from_db;
+        $jwt = JWT::encode(["id" => $account_from_db['id']], "JWT_SECRET");
+
+        return ["token" => $jwt];
     }
 
     public function register($account) {

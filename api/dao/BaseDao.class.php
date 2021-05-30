@@ -56,6 +56,7 @@ require_once dirname(__FILE__)."/../config.php";
 
         // Inserting.
         protected function insert($table, $params) {
+
             try {
                 $query = "INSERT INTO ${table} (";
                 foreach($params as $name => $values) {
@@ -71,7 +72,6 @@ require_once dirname(__FILE__)."/../config.php";
 
                 $this->connection->prepare($query)->execute($params);
                 $params['id'] = $this->connection->lastInsertId();
-                
                 return $params;
             }
             catch (Exception $e) {

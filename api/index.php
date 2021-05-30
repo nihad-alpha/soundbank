@@ -25,6 +25,7 @@ require_once dirname(__FILE__)."/routes/albums.php";
 require_once dirname(__FILE__)."/routes/songs.php";
 require_once dirname(__FILE__)."/routes/playlists.php";
 require_once dirname(__FILE__)."/routes/artists.php";
+require_once dirname(__FILE__)."/routes/middleware.php";
 
 // Include services:
 require_once dirname(__FILE__)."/services/AccountService.class.php";

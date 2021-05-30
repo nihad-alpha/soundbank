@@ -9,11 +9,12 @@ error_reporting(E_ALL);
  * @OA\Info(title="Soundbank API", version="0.1")
  * * @OA\OpenApi(
  *   @OA\Server( url="http://localhost/soundbank/api/", description="Development Environment")
- * )
+ * ),
+ * @OA\SecurityScheme(securityScheme="ApiKeyAuth", type="apiKey", in="header", name="Authentication" )
  */
 
 /**
- * @OA\Get( path="/accounts", tags={"account"},
+ * @OA\Get( path="/accounts", tags={"account"}, security={{"ApiKeyAuth": {}}},
  *     @OA\Parameter(type="string", in="query", name="search", default=null, description="Parameter that allows searching through accounts."),
  *     @OA\Parameter(type="integer", in="query", name="offset", default=0, description="Parameter that sets the starting position from which we start fetching accounts."),
  *     @OA\Parameter(type="integer", in="query", name="limit", default=25, description="Parameter that limits how many accounts are fetched."),
@@ -32,37 +33,37 @@ Flight::route("GET /accounts", function() {
 });
 
 /**
-* @OA\Post(
-*     path="/accounts/register", 
-*     tags={"account"},
-*     @OA\RequestBody(
-*         required=true,
-*         @OA\MediaType(
-*             mediaType="application/json",
-*             @OA\Schema(
-*                 @OA\Property(
-*                     description="Username of the account",
-*                     property="username",
-*                     type="string",
-*                     example = "USERNAME_EXAMPLE"
-*                 ),
-*                 @OA\Property(
-*                     description="Password of the account",
-*                     property="password",
-*                     type="string",
-*                     example = "PASSWORD_EXAMPLE"
-*                 ),
-*                 @OA\Property(
-*                     description="Email of the account",
-*                     property="email",
-*                     type="string",
-*                     example = "EMAIL_EXAMPLE@DOMAIN.COM"
-*                 )
-*              )
-*        )
-*     ),
-*     @OA\Response(response="200", description="Add a new account.")
-* )
+    * @OA\Post(
+    *     path="/accounts/register", 
+    *     tags={"account"},
+    *     @OA\RequestBody(
+    *         required=true,
+    *         @OA\MediaType(
+    *             mediaType="application/json",
+    *             @OA\Schema(
+    *                 @OA\Property(
+    *                     description="Username of the account",
+    *                     property="username",
+    *                     type="string",
+    *                     example = "USERNAME_EXAMPLE"
+    *                 ),
+    *                 @OA\Property(
+    *                     description="Password of the account",
+    *                     property="password",
+    *                     type="string",
+    *                     example = "PASSWORD_EXAMPLE"
+    *                 ),
+    *                 @OA\Property(
+    *                     description="Email of the account",
+    *                     property="email",
+    *                     type="string",
+    *                     example = "EMAIL_EXAMPLE@DOMAIN.COM"
+    *                 )
+    *              )
+    *        )
+    *     ),
+    *     @OA\Response(response="200", description="Add a new account.")
+    * )
 */
 Flight::route("POST /accounts/register", function() {
     Flight::accountService()->register(Flight::request()->data->getData());
@@ -70,57 +71,56 @@ Flight::route("POST /accounts/register", function() {
 });
 
 /**
-* @OA\Post(
-*     path="/accounts/login", 
-*     tags={"account"},
-*     @OA\RequestBody(
-*         required=true,
-*         @OA\MediaType(
-*             mediaType="application/json",
-*             @OA\Schema(
-*                 @OA\Property(
-*                     description="Email of the account",
-*                     property="email",
-*                     type="string",
-*                     example = "EMAIL"
-*                 ),
-*                 @OA\Property(
-*                     description="Password of the account",
-*                     property="password",
-*                     type="string",
-*                     example = "PASSWORD_EXAMPLE"
-*                 )
-*              )
-*        )
-*     ),
-*     @OA\Response(response="200", description="Add a new account.")
-* )
+    * @OA\Post(
+    *     path="/accounts/login", 
+    *     tags={"account"},
+    *     @OA\RequestBody(
+    *         required=true,
+    *         @OA\MediaType(
+    *             mediaType="application/json",
+    *             @OA\Schema(
+    *                 @OA\Property(
+    *                     description="Email of the account",
+    *                     property="email",
+    *                     type="string",
+    *                     example = "EMAIL"
+    *                 ),
+    *                 @OA\Property(
+    *                     description="Password of the account",
+    *                     property="password",
+    *                     type="string",
+    *                     example = "PASSWORD_EXAMPLE"
+    *                 )
+    *              )
+    *        )
+    *     ),
+    *     @OA\Response(response="200", description="Add a new account.")
+    * )
 */
 Flight::route("POST /accounts/login", function() {
     Flight::json(Flight::accountService()->login(Flight::request()->data->getData()));
-    Flight::json(["message" => "You have successfully logged in."]);
 });
 
 /**
-* @OA\Post(
-*     path="/accounts/forgot", 
-*     tags={"account"},
-*     @OA\RequestBody(
-*         required=true,
-*         @OA\MediaType(
-*             mediaType="application/json",
-*             @OA\Schema(
-*                 @OA\Property(
-*                     description="Email of the account",
-*                     property="email",
-*                     type="string",
-*                     example = "EMAIL"
-*                 )
-*              )
-*        )
-*     ),
-*     @OA\Response(response="200", description="Add a new account.")
-* )
+    * @OA\Post(
+    *     path="/accounts/forgot", 
+    *     tags={"account"},
+    *     @OA\RequestBody(
+    *         required=true,
+    *         @OA\MediaType(
+    *             mediaType="application/json",
+    *             @OA\Schema(
+    *                 @OA\Property(
+    *                     description="Email of the account",
+    *                     property="email",
+    *                     type="string",
+    *                     example = "EMAIL"
+    *                 )
+    *              )
+    *        )
+    *     ),
+    *     @OA\Response(response="200", description="Add a new account.")
+    * )
 */
 Flight::route("POST /accounts/forgot", function() {
     Flight::accountService()->forgot(Flight::request()->data->getData());
@@ -128,31 +128,31 @@ Flight::route("POST /accounts/forgot", function() {
 });
 
 /**
-* @OA\Post(
-*     path="/accounts/reset", 
-*     tags={"account"},
-*     @OA\RequestBody(
-*         required=true,
-*         @OA\MediaType(
-*             mediaType="application/json",
-*             @OA\Schema(
-*                 @OA\Property(
-*                     description="Token of the account",
-*                     property="token",
-*                     type="string",
-*                     example = "iamatokenguesswhatiam"
-*                 ),
-*                 @OA\Property(
-*                     description="New password for the account",
-*                     property="password",
-*                     type="string",
-*                     example = "PASSWORD_EXAMPLE"
-*                 )
-*              )
-*        )
-*     ),
-*     @OA\Response(response="200", description="Reset a password of an account.")
-* )
+    * @OA\Post(
+    *     path="/accounts/reset", 
+    *     tags={"account"},
+    *     @OA\RequestBody(
+    *         required=true,
+    *         @OA\MediaType(
+    *             mediaType="application/json",
+    *             @OA\Schema(
+    *                 @OA\Property(
+    *                     description="Token of the account",
+    *                     property="token",
+    *                     type="string",
+    *                     example = "iamatokenguesswhatiam"
+    *                 ),
+    *                 @OA\Property(
+    *                     description="New password for the account",
+    *                     property="password",
+    *                     type="string",
+    *                     example = "PASSWORD_EXAMPLE"
+    *                 )
+    *              )
+    *        )
+    *     ),
+    *     @OA\Response(response="200", description="Reset a password of an account.")
+    * )
 */
 Flight::route("POST /accounts/reset", function() {
     Flight::accountService()->reset(Flight::request()->data->getData());
@@ -160,25 +160,25 @@ Flight::route("POST /accounts/reset", function() {
 });
 
 /**
-* @OA\Post(
-*     path="/accounts/confirm/{token}", 
-*     tags={"account"},
-*     @OA\RequestBody(
-*         required=true,
-*         @OA\MediaType(
-*             mediaType="application/json",
-*             @OA\Schema(
-*                 @OA\Property(
-*                     description="Token of the account",
-*                     property="token",
-*                     type="string",
-*                     example = "iamatokenguesswhatiam"
-*                 )
-*              )
-*        )
-*     ),
-*     @OA\Response(response="200", description="Confirm an account via token")
-* )
+    * @OA\Post(
+    *     path="/accounts/confirm/{token}", 
+    *     tags={"account"},
+    *     @OA\RequestBody(
+    *         required=true,
+    *         @OA\MediaType(
+    *             mediaType="application/json",
+    *             @OA\Schema(
+    *                 @OA\Property(
+    *                     description="Token of the account",
+    *                     property="token",
+    *                     type="string",
+    *                     example = "iamatokenguesswhatiam"
+    *                 )
+    *              )
+    *        )
+    *     ),
+    *     @OA\Response(response="200", description="Confirm an account via token")
+    * )
 */
 Flight::route("GET /accounts/confirm/@token", function($token) {
     Flight::accountService()->confirm($token);
@@ -186,7 +186,7 @@ Flight::route("GET /accounts/confirm/@token", function($token) {
 });
 
 /**
- * @OA\Get( path="/accounts/{id}", tags={"account"},
+ * @OA\Get( path="/accounts/{id}", tags={"account"}, security={{"ApiKeyAuth": {}}},
  *     @OA\Parameter(type="integer", in="path", name="id", default=0, description="ID of the account you want to fetch."),
  *     @OA\Response(response="200", description="Fetch an account by ID.")
  * )
@@ -195,38 +195,39 @@ Flight::route("GET /accounts/@id", function($id) {
     Flight::json(Flight::accountService()->get_by_id($id));
 });
 
-/**
-* @OA\Post(
-*     path="/accounts", 
-*     tags={"account"},
-*     @OA\RequestBody(
-*         required=true,
-*         @OA\MediaType(
-*             mediaType="application/json",
-*             @OA\Schema(
-*                 @OA\Property(
-*                     description="Username of the account",
-*                     property="username",
-*                     type="string",
-*                     example = "USERNAME_EXAMPLE"
-*                 ),
-*                 @OA\Property(
-*                     description="Password of the account",
-*                     property="password",
-*                     type="string",
-*                     example = "PASSWORD_EXAMPLE"
-*                 ),
-*                 @OA\Property(
-*                     description="Email of the account",
-*                     property="email",
-*                     type="string",
-*                     example = "EMAIL_EXAMPLE@DOMAIN.COM"
-*                 )
-*              )
-*        )
-*     ),
-*     @OA\Response(response="200", description="Add a new account.")
-* )
+/** 
+ * @OA\Post(
+ *     path="/accounts", 
+ *     tags={"account"},
+ *     security={{"ApiKeyAuth": {}}},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(
+ *                 @OA\Property(
+ *                     description="Username of the account",
+ *                     property="username",
+ *                     type="string",
+ *                     example = "USERNAME_EXAMPLE"
+ *                 ),
+ *                 @OA\Property(
+ *                     description="Password of the account",
+ *                     property="password",
+ *                     type="string",
+ *                     example = "PASSWORD_EXAMPLE"
+ *                 ),
+ *                 @OA\Property(
+ *                     description="Email of the account",
+ *                     property="email",
+ *                     type="string",
+ *                     example = "EMAIL_EXAMPLE@DOMAIN.COM"
+ *                 )
+ *              )
+ *        )
+ *     ),
+ *     @OA\Response(response="200", description="Add a new account.")
+ * )
 */
 Flight::route("POST /accounts", function() {
     $request = Flight::request();
@@ -234,36 +235,36 @@ Flight::route("POST /accounts", function() {
 });
 
 /**
-* @OA\Put( path="/accounts/{id}", tags={"account"},
-*     @OA\Parameter(type="integer", in="path", name="id", default=0, description="ID of the account you want to update."),
-*     @OA\RequestBody(
-*         required=true,
-*         @OA\MediaType(
-*             mediaType="application/json",
-*             @OA\Schema(
-*                 @OA\Property(
-*                     description="Username of the account",
-*                     property="username",
-*                     type="string",
-*                     example = "USERNAME_EXAMPLE"
-*                 ),
-*                 @OA\Property(
-*                     description="Password of the account",
-*                     property="password",
-*                     type="string",
-*                     example = "PASSWORD_EXAMPLE"
-*                 ),
-*                 @OA\Property(
-*                     description="Email of the account",
-*                     property="email",
-*                     type="string",
-*                     example = "EMAIL_EXAMPLE@DOMAIN.COM"
-*                 )
-*              )
-*        )
-*     ),
-*     @OA\Response(response="200", description="Update an account by ID.")
-* )
+    * @OA\Put( path="/accounts/{id}", tags={"account"}, security={{"ApiKeyAuth": {}}},
+    *     @OA\Parameter(type="integer", in="path", name="id", default=0, description="ID of the account you want to update."),
+    *     @OA\RequestBody(
+    *         required=true,
+    *         @OA\MediaType(
+    *             mediaType="application/json",
+    *             @OA\Schema(
+    *                 @OA\Property(
+    *                     description="Username of the account",
+    *                     property="username",
+    *                     type="string",
+    *                     example = "USERNAME_EXAMPLE"
+    *                 ),
+    *                 @OA\Property(
+    *                     description="Password of the account",
+    *                     property="password",
+    *                     type="string",
+    *                     example = "PASSWORD_EXAMPLE"
+    *                 ),
+    *                 @OA\Property(
+    *                     description="Email of the account",
+    *                     property="email",
+    *                     type="string",
+    *                     example = "EMAIL_EXAMPLE@DOMAIN.COM"
+    *                 )
+    *              )
+    *        )
+    *     ),
+    *     @OA\Response(response="200", description="Update an account by ID.")
+    * )
 */
 Flight::route("PUT /accounts/@id", function($id){
     $data = Flight::request()->data->getData();
