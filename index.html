@@ -40,7 +40,7 @@
 			<nav class="header__nav">
 				<a href="#profile">Profile</a>
 				<a href="#about">About</a>
-				<a href="pages/contacts.html">Contacts</a>
+				<a href="#contacts">Contacts</a>
 			</nav>
 
 			<form action="#" class="header__search">
@@ -159,6 +159,7 @@
 		<section id="about" data-load="about.html" ></section>
 		<section id="artist" data-load="artist.html" ></section>
 		<section id="release" data-load="release.html" ></section>
+		<section id="contacts" data-load="contacts.html" ></section>
 	  </main>
 
 	<!-- footer -->
@@ -348,6 +349,7 @@
 		  app.route({view: 'about', load: 'about.html' });
 		  app.route({view: 'artist', load: 'artist.html' });
 		  app.route({view: 'release', load: 'release.html' });
+		  app.route({view: 'contacts', load: 'contacts.html' });
 		
 		  // run app
 		  app.run();
