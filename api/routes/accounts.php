@@ -160,7 +160,7 @@ Flight::route("POST /accounts/reset", function() {
 });
 
 /**
-    * @OA\Post(
+    * @OA\Get(
     *     path="/accounts/confirm/{token}", 
     *     tags={"account"},
     *     @OA\RequestBody(
@@ -192,6 +192,7 @@ Flight::route("GET /accounts/confirm/@token", function($token) {
  * )
  */
 Flight::route("GET /accounts/@id", function($id) {
+    if (Flight::get('account')['id'] != $id) throw new Exception("This account is not for you!");
     Flight::json(Flight::accountService()->get_by_id($id));
 });
 

@@ -2,11 +2,6 @@
 
 /* 
     TO DO:
-    - implement swagger
-    - implement emailing system
-        - login authentication
-        - JWT token
-    - implement middleware
     - implement the GUI
     - deploy
 */
@@ -64,7 +59,6 @@ Flight::route ("GET /swagger", function () {
 Flight::route("GET /", function() {
     Flight::redirect("/docs");
 });
-
 
 // Start FlightPHP framework.
 Flight::start();
