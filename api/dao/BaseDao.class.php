@@ -69,18 +69,21 @@ require_once dirname(__FILE__)."/../config.php";
                 }
                 $query = substr($query, 0, -1);
                 $query .= ")";
-
+                
                 $this->connection->prepare($query)->execute($params);
                 $params['id'] = $this->connection->lastInsertId();
+                
                 return $params;
             }
             catch (Exception $e) {
-                echo $e->getMessage();
+                print_r($e->getMessage());
+                die;
             }
         }
 
         // Inserting function allowed publicly.
         public function add($params) {
+
             return $this->insert($this->_table, $params);
         }
 

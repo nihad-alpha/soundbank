@@ -111,7 +111,7 @@ class AccountService extends BaseService {
                 "email" => $account["email"],
                 "username" => $account["username"],
                 "password" => $hashed_password,
-                "account_type_id" => 2,
+                "account_type" => "REGISTERED",
                 "status" => "PENDING",
                 "token" => md5(random_bytes(16)),
                 "created_at" => date(Config::DATE_FORMAT)
