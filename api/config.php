@@ -25,8 +25,8 @@ class Config {
       public static function SMTP_PORT(){
         return Config::get_env("SMTP_PORT", "587");
       }
-      public static function SMTP_USER(){
-        return Config::get_env("SMTP_USER", "postmaster@soundbank.games");
+      public static function SMTP_USERNAME(){
+        return Config::get_env("SMTP_USERNAME", "postmaster@soundbank.games");
       }
       public static function SMTP_PASSWORD(){
         return Config::get_env("SMTP_PASSWORD", "12cdd9faf4e452ba01b24aef8cf2e6b8-6ae2ecad-b9141933");

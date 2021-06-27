@@ -15,7 +15,7 @@ class SMTPClient {
 
     // Create the Transport
     $transport = (new Swift_SmtpTransport(Config::SMTP_HOST(), Config::SMTP_PORT()))
-    ->setUsername(Config::SMTP_USER())
+    ->setUsername(Config::SMTP_USERNAME())
     ->setPassword(Config::SMTP_PASSWORD())
     ;
 
