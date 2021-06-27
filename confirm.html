@@ -26,33 +26,19 @@
 
 </head>
 <body>
-
-				<!-- authorization form -->
+				<!-- error -->
 				<div class="col-12">
-					<div class="sign" style = "margin-top:5%">
-						<div class="sign__content">
-							<form action="#" class="sign__form">
-								<a href="index.html" class="sign__logo">
-									<img src="assets/img/logo.svg" alt="">
-								</a>
-
-								<div class="sign__group">
-									<input id="email" type="text" class="sign__input" placeholder="Email">
-								</div>
-
-								<div class="sign__group sign__group--checkbox">
-									<input id="remember" name="remember" type="checkbox" checked="checked">
-									<label for="remember">I agree to the <a href="privacy.html">Privacy Policy</a></label>
-								</div>
-								
-								<button id="forgot-button" onclick="forgot()" class="sign__btn" type="button">Send</button>
-
-								<span id="message" style = "display:none;" class="sign__text">We will send a password to your Email</span>
-							</form>
+					<div class="page-404" style = "margin-top:5%">
+						<div class="page-404__wrap">
+							<div class="page-404__content">
+								<h1 id="title" class="page-404__title" style = "font-size:100%;">Confirming your account...</h1>
+								<p id="message" class="page-404__text"></p>
+								<button id="confirm-button" onclick="backtologin()" class="page-404__btn"  style = "display:none;">Back to Login</button>
+							</div>
 						</div>
 					</div>
 				</div>
-				<!-- end authorization form -->
+				<!-- end error -->
 
 	<!-- JS -->
 	<script src="assets/js/jquery-3.5.1.min.js"></script>
@@ -65,23 +51,30 @@
 	<script src="assets/js/jquery.inputmask.min.js"></script>
 	<script src="assets/js/plyr.min.js"></script>
 	<script src="assets/js/main.js"></script>
+
+	<script>
+		$(function () {
+			const urlParams = new URLSearchParams(window.location.search);
+			var token = urlParams.get('token');
+
+			$("#confirm-button").prop('disabled', true);
+
+			$.get("/soundbank/api/accounts/confirm/" + token, function(data){
+					$("#message").html(data.message);
+					$("#title").html("Confirmed!");
+					$("#confirm-button").show();
+					$("#confirm-button").prop('disabled', false);
+				}).fail(function(error) {
+					$("#message").html(error.responseJSON.message);
+					$("#title").html("Error!");
+					$("#confirm-button").show();
+					$("#confirm-button").prop('disabled', false);
+				});
+		});
+
+		function backtologin() {
+			window.location = "signin.html";
+		}
+	</script>
 </body>
-<script>
-	function forgot() {
-		var forgot_json = {
-			"email" : $("#email").val()
-		};
-
-		$("#forgot-button").prop('disabled', true);
-
-		$.post("/soundbank/api/accounts/forgot", forgot_json, function(data){
-				$("#message").show();
-				$("#message").html(data.message);
-				//window.location = "signin.html";
-			}).fail(function(error) {
-				alert(error.responseJSON.message);
-				$("#forgot-button").prop('disabled', false);
-			});
-	}
-</script>
 </html>
