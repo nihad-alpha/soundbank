@@ -90,7 +90,7 @@
 			// Disables the button for clicking event issues:
 			$("#login-button").prop('disabled', true);
 		
-			$.post("/soundbank/api/accounts/login", login_json, function(data){
+			$.post("/api/accounts/login", login_json, function(data){
 				window.localStorage.setItem("token", data.token);
 				window.location = "index.html";
 			}).fail(function(error) {
