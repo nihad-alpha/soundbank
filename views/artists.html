@@ -220,8 +220,8 @@
                             </div>
                             <h3 class="artist__title">Jason Aldean</h3>
                         </a>
-                    </div>
-                </div>-->
+                    </div>-->
+                </div>
             </div>
         </div>
         <!-- end artists -->
@@ -240,7 +240,7 @@ $(function() {
             generateArtist(data[i].name, data[i].cover_url);
         }
     }).fail(function(error) {
-
+        alert(error.responseJSON.message);
     });
     
 });
