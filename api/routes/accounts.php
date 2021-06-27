@@ -8,7 +8,8 @@ error_reporting(E_ALL);
 /**
  * @OA\Info(title="Soundbank API", version="0.1")
  * * @OA\OpenApi(
- *   @OA\Server( url="http://localhost/soundbank/api/", description="Development Environment")
+ *   @OA\Server(url="http://localhost/soundbank/api/", description="Development Environment"),
+ *   @OA\Server(url="https://www.soundbank.games/api/", description="Production Environment" )
  * ),
  * @OA\SecurityScheme(securityScheme="ApiKeyAuth", type="apiKey", in="header", name="Authentication" )
  */
