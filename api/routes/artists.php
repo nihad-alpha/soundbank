@@ -12,7 +12,7 @@ Flight::route("GET /artists", function() {
     $search = Flight::query('search');
     $offset = Flight::query('offset', 0);
     $limit = Flight::query('limit', 25);
-    $order = Flight::query('order');
+    $order = Flight::query('order', '-id');
 
     Flight::json(Flight::artistService()->get_artists($search, $offset, $limit, $order));
 });

@@ -59,8 +59,8 @@
                     </div>
                 </div>
 
-                <div class="row row--grid">
-                    <div class="col-6 col-sm-4 col-md-3 col-xl-2">
+                <div class="row row--grid" id="artist_list">
+                    <!--<div class="col-6 col-sm-4 col-md-3 col-xl-2">
                         <a href="#artist" class="artist">
                             <div class="artist__cover">
                                 <img src="./assets/img/artists/eminem.jpg" alt="">
@@ -221,9 +221,7 @@
                             <h3 class="artist__title">Jason Aldean</h3>
                         </a>
                     </div>
-                </div>
-
-                <button class="main__load" type="button">Load more</button>
+                </div>-->
             </div>
         </div>
         <!-- end artists -->
@@ -236,5 +234,49 @@ $(function() {
     if (!window.localStorage.getItem("token")) {
         window.location = "#signin";
     }
+
+    $.get("/soundbank/api/artists", function(data){
+        for (let i = 0; i < data.length; i++) {
+            generateArtist(data[i].name, data[i].cover_url);
+        }
+    }).fail(function(error) {
+
+    });
+    
 });
+
+function generateArtist(name, cover_url) {
+    const artist = document.createElement("div");
+    artist.classList.add("col-6");
+    artist.classList.add("col-sm-4");
+    artist.classList.add("col-md-3");
+    artist.classList.add("col-xl-2");
+
+    const link = document.createElement("a");
+    link.href = "#artist";
+    link.classList.add("artist");
+
+    const cover = document.createElement("div");
+    cover.classList.add("artist__cover");
+
+    const cover_image = document.createElement("img");
+    cover_image.src = cover_url;
+    cover_image.alt = "";
+
+    const artist_title = document.createElement("h3");
+    artist_title.classList.add("artist__title");
+    const artist_name = document.createTextNode(name);
+    artist_title.appendChild(artist_name);
+
+    cover.appendChild(cover_image);
+    
+    
+    link.appendChild(cover);
+    link.appendChild(artist_title);
+
+    artist.appendChild(link);
+
+    var artist_list = document.getElementById("artist_list");
+    artist_list.appendChild(artist);
+}
 </script>
