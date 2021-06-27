@@ -235,7 +235,7 @@ $(function() {
         window.location = "#signin";
     }
 
-    $.get("/api/artists", function(data){
+    $.get("api/artists", function(data){
         for (let i = 0; i < data.length; i++) {
             generateArtist(data[i].name, data[i].cover_url);
         }

@@ -82,7 +82,7 @@
 
 		$("#signup-button").prop('disabled', true);
 
-		$.post("/api/accounts/register", registration_json, function(data){
+		$.post("api/accounts/register", registration_json, function(data){
 				alert(data.message);
 				window.location = "signin.html";
 			}).fail(function(error) {

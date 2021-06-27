@@ -61,7 +61,7 @@
 
 			$("#confirm-button").prop('disabled', true);
 
-			$.get("/api/accounts/confirm/" + token, function(data){
+			$.get("api/accounts/confirm/" + token, function(data){
 					$("#message").html(data.message);
 					$("#title").html("Confirmed!");
 					$("#confirm-button").show();

@@ -39,7 +39,7 @@ class SMTPClient {
     }
 
     public function send_recovery_account_token($account) {
-        $message = $this->create_message("Recovery email", "nihad.suvalija@stu.ibu.edu.ba", $account['email'], "Recovery link: http://localhost/soundbank/new_password.html?token=". $account['token']);
+        $message = $this->create_message("Recovery email", "nihad.suvalija@stu.ibu.edu.ba", $account['email'], "Recovery link: https://www.soundbank.games/new_password.html?token=". $account['token']);
         $this->mailer->send($message);
     }
 }

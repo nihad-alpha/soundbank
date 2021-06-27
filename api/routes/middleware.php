@@ -9,7 +9,7 @@ Flight::before('start', function (&$params, &$output) {
     if (str_starts_with (Flight::request()->url, '/accounts/confirm')) return TRUE;
     if (str_starts_with (Flight::request()->url, '/accounts/reset')) return TRUE;
     if (str_starts_with (Flight::request()->url, '/artists')) return TRUE;
-    if (str_starts_with (Flight::request()->url, '/swagger')) return TRUE;
+    if (Flight::request()->url == '/') return TRUE;
 
     $headers = getallheaders();
     $token = @$headers['Authentication'];
