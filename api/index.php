@@ -41,6 +41,11 @@ Flight::register("songService", "SongService");
 Flight::register("playlistService", "PlaylistService");
 Flight::register("artistService", "ArtistService");
 
+// Mapped a function for error handling.
+Flight::map('error', function(Exception $ex){
+    Flight::json(["message" => $ex->getMessage()], $ex->getCode() ? $ex->getCode() : 500);
+});
+
 // Mapped a function which returns values from the query inside of the link.
 Flight::map('query', function($name, $default_value = null) {
     $request = Flight::request();

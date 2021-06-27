@@ -26,7 +26,7 @@
 	<title>Soundbank</title>
 
 </head>
-<body>
+<body style = "display:none;">
 	
 	<!-- header -->
 	<header class="header">
@@ -82,12 +82,13 @@
 						</div>
 					</div>
 				</div>
-
 				<div class="header__action header__action--signin">
-					<a class="header__action-btn" href="#signin">
-						<span>Sign in</span>
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,12a1,1,0,0,0-1-1H11.41l2.3-2.29a1,1,0,1,0-1.42-1.42l-4,4a1,1,0,0,0-.21.33,1,1,0,0,0,0,.76,1,1,0,0,0,.21.33l4,4a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L11.41,13H19A1,1,0,0,0,20,12ZM17,2H7A3,3,0,0,0,4,5V19a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V16a1,1,0,0,0-2,0v3a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V5A1,1,0,0,1,7,4H17a1,1,0,0,1,1,1V8a1,1,0,0,0,2,0V5A3,3,0,0,0,17,2Z"/></svg>
-					</a>
+					<button id="logout-button" onclick = "logout()" class="profile__logout" type="button">
+						<a class="header__action-btn" href="signin.html">
+							<span>Sign out</span>
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4,12a1,1,0,0,0,1,1h7.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l4-4a1,1,0,0,0,.21-.33,1,1,0,0,0,0-.76,1,1,0,0,0-.21-.33l-4-4a1,1,0,1,0-1.42,1.42L12.59,11H5A1,1,0,0,0,4,12ZM17,2H7A3,3,0,0,0,4,5V8A1,1,0,0,0,6,8V5A1,1,0,0,1,7,4H17a1,1,0,0,1,1,1V19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V16a1,1,0,0,0-2,0v3a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V5A3,3,0,0,0,17,2Z"/></svg>
+						</a>  
+					</button>
 				</div>
 			</div>
 
@@ -336,25 +337,22 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 		  var app = $.jQuerySPApp({defaultView  : "home"}); // initialize
-	
-		  // define routes
-		  app.route({view: 'home', load: 'home.html' });
-		  app.route({view: 'artists', load: 'artists.html' });
-		  app.route({view: 'releases', load: 'releases.html' });
-		  app.route({view: 'store', load: 'store.html' });
-		  app.route({view: 'signin', load: 'signin.html' });
-		  app.route({view: 'forgot', load: 'forgot.html' });
-		  app.route({view: 'signup', load: 'signup.html' });
-		  app.route({view: 'profile', load: 'profile.html' });
-		  app.route({view: 'about', load: 'about.html' });
-		  app.route({view: 'artist', load: 'artist.html' });
-		  app.route({view: 'release', load: 'release.html' });
-		  app.route({view: 'contacts', load: 'contacts.html' });
-		
 		  // run app
 		  app.run();
+
+		  if (!window.localStorage.getItem("token")) {
+			  window.location = "signin.html";
+		  } else {
+			  $('body').show();
+		  }
 		});
 
+
+		function logout() {
+			window.localStorage.clear();
+			window.location = "signin.html";
+			$('body').hide();
+		}
 	  </script>
 </body>
 </html>

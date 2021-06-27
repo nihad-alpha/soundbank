@@ -76,8 +76,7 @@ require_once dirname(__FILE__)."/../config.php";
                 return $params;
             }
             catch (Exception $e) {
-                print_r($e->getMessage());
-                die;
+                throw $e;
             }
         }
 
@@ -107,7 +106,7 @@ require_once dirname(__FILE__)."/../config.php";
                 $stmt->execute($params); 
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
             } catch (Exception $e) {
-                echo $e->getMessage();
+                throw $e;
             }
         }
 

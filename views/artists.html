@@ -230,3 +230,11 @@
     </div>
 </main>
 <!-- end main content -->
+
+<script>
+$(function() {
+    if (!window.localStorage.getItem("token")) {
+        window.location = "#signin";
+    }
+});
+</script>
