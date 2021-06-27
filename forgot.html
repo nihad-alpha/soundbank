@@ -74,7 +74,7 @@
 
 		$("#forgot-button").prop('disabled', true);
 
-		$.post("/soundbank/api/accounts/forgot", forgot_json, function(data){
+		$.post("/api/accounts/forgot", forgot_json, function(data){
 				$("#message").show();
 				$("#message").html(data.message);
 				//window.location = "signin.html";
