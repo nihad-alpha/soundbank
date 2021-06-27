@@ -57,6 +57,8 @@
 			const urlParams = new URLSearchParams(window.location.search);
 			var token = urlParams.get('token');
 
+			alert(token);
+
 			$("#confirm-button").prop('disabled', true);
 
 			$.get("/api/accounts/confirm/" + token, function(data){
