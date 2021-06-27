@@ -5,13 +5,16 @@ class Config {
     const JWT_SECRET = "JWT_SECRET";
 
     public static function DB_HOST(){
-        return Config::get_env("DB_HOST", "localhost");
+        return Config::get_env("DB_HOST", "soundbank-db-do-user-9216819-0.b.db.ondigitalocean.com");
       }
       public static function DB_USERNAME(){
-        return Config::get_env("DB_USERNAME", "root");
+        return Config::get_env("DB_USERNAME", "doadmin");
       }
       public static function DB_PASSWORD(){
-        return Config::get_env("DB_PASSWORD", "berina123");
+        return Config::get_env("DB_PASSWORD", "il2eoqw5yy0uf4qs");
+      }
+      public static function DB_PORT(){
+        return Config::get_env("DB_PORT", "3306");
       }
       public static function DB_SCHEME(){
         return Config::get_env("DB_SCHEME", "Soundbank");
