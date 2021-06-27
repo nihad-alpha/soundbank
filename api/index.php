@@ -47,12 +47,12 @@ Flight::map('error', function(Exception $ex){
 });
 
 // Mapped a function which returns values from the query inside of the link.
-Flight::map('query', function($name, $default_value = null) {
+/*Flight::map('query', function($name, $default_value = null) {
     $request = Flight::request();
     $query_params = @$request->query->getData()[$name];
     $query_params = $query_params ? $query_params : $default_value;
     return $query_params;
-});
+});*/
 
 // Swagger documentation:
 Flight::route ("GET /swagger", function () {
