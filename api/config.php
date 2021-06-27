@@ -14,10 +14,10 @@ class Config {
         return Config::get_env("DB_PASSWORD", "il2eoqw5yy0uf4qs");
       }
       public static function DB_PORT(){
-        return Config::get_env("DB_PORT", "3306");
+        return Config::get_env("DB_PORT", "25060");
       }
       public static function DB_SCHEME(){
-        return Config::get_env("DB_SCHEME", "Soundbank");
+        return Config::get_env("DB_SCHEME", "soundbank");
       }
       public static function SMTP_HOST(){
         return Config::get_env("SMTP_HOST", "smtp.mailgun.org");
