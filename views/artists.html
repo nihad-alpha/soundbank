@@ -237,7 +237,7 @@ $(function() {
 
     $.get("api/artists", function(data){
         for (let i = 0; i < data.length; i++) {
-            generateArtist(data[i].name, data[i].cover_url);
+            generateArtist(data[i]);
         }
     }).fail(function(error) {
         alert(error.responseJSON.message);
@@ -245,7 +245,7 @@ $(function() {
     
 });
 
-function generateArtist(name, cover_url) {
+function generateArtist(data) {
     const artist = document.createElement("div");
     artist.classList.add("col-6");
     artist.classList.add("col-sm-4");
@@ -253,23 +253,25 @@ function generateArtist(name, cover_url) {
     artist.classList.add("col-xl-2");
 
     const link = document.createElement("a");
-    link.href = "#artist";
+    link.href = "#artist"
     link.classList.add("artist");
+    link.onclick = function() {
+        window.localStorage.setItem("id", data.id);
+    };
 
     const cover = document.createElement("div");
     cover.classList.add("artist__cover");
 
     const cover_image = document.createElement("img");
-    cover_image.src = cover_url;
+    cover_image.src = data.cover_url;
     cover_image.alt = "";
 
     const artist_title = document.createElement("h3");
     artist_title.classList.add("artist__title");
-    const artist_name = document.createTextNode(name);
+    const artist_name = document.createTextNode(data.name);
     artist_title.appendChild(artist_name);
 
     cover.appendChild(cover_image);
-    
     
     link.appendChild(cover);
     link.appendChild(artist_title);

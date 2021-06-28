@@ -1,11 +1,5 @@
 <?php 
 
-/* 
-    TO DO:
-    - implement the GUI
-    - deploy
-*/
-
 // Displays errors.
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -14,13 +8,13 @@ error_reporting(E_ALL);
 // Includes FlightPHP.
 require_once dirname(__FILE__)."/../vendor/autoload.php";
 
-// Include routes:
+// Include routes and middleware:
+require_once dirname(__FILE__)."/routes/middleware.php";
 require_once dirname(__FILE__)."/routes/accounts.php";
 require_once dirname(__FILE__)."/routes/albums.php";
 require_once dirname(__FILE__)."/routes/songs.php";
 require_once dirname(__FILE__)."/routes/playlists.php";
 require_once dirname(__FILE__)."/routes/artists.php";
-require_once dirname(__FILE__)."/routes/middleware.php";
 
 // Include services:
 require_once dirname(__FILE__)."/services/AccountService.class.php";
@@ -42,9 +36,9 @@ Flight::register("playlistService", "PlaylistService");
 Flight::register("artistService", "ArtistService");
 
 // Mapped a function for error handling.
-Flight::map('error', function(Exception $ex){
+/*Flight::map('error', function(Exception $ex){
     Flight::json(["message" => $ex->getMessage()], $ex->getCode() ? $ex->getCode() : 500);
-});
+});*/
 
 // Mapped a function which returns values from the query inside of the link.
 Flight::map('query', function($name, $default_value = null) {

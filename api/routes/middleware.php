@@ -1,7 +1,28 @@
 <?php
 // Filter-based Middleware (By the book option, not very flexible)
 require_once dirname(__FILE__)."/../config.php";
-Flight::before('start', function (&$params, &$output) {
+
+/* middleware for regular users */
+/*Flight::route('/accounts/*', function(){
+    $headers = getallheaders();
+    $token = @$headers['Authentication'];
+
+    try {
+      $decoded = (array)\Firebase\JWT\JWT::decode($token, Config::JWT_SECRET, ["HS256"]);
+      print_r($decoded);
+      die;
+      if (Flight::request()->method != "GET" && $decoded['account_type'] != "ADMIN"){
+        throw new Exception("You are not the administrator.", 403);
+      }
+      Flight::set('account', $decoded['id']);
+      return TRUE;
+    } catch (\Exception $e) {
+      Flight::json(["message" => $e->getMessage()], 401);
+      die;
+    }
+  });*/
+
+Flight::route('/*', function () {
     if (Flight::request()->url == "/swagger") return TRUE;
     if (str_starts_with (Flight::request()->url, '/accounts/login')) return TRUE;
     if (str_starts_with (Flight::request()->url, '/accounts/register')) return TRUE;
@@ -16,7 +37,10 @@ Flight::before('start', function (&$params, &$output) {
     
     try {
         $decoded = (array)\Firebase\JWT\JWT::decode($token, Config::JWT_SECRET, ["HS256"]);
-        Flight::set('account', $decoded);
+        if (Flight::request()->method != "GET" && $decoded['account_type'] != "ADMIN"){
+            throw new Exception("You are not the administrator.", 403);
+        }
+        Flight::set('account', $decoded['id']);
         return TRUE;
     } catch (\Exception $e) {
         Flight::json(["message" => "Unauthorized access."]);

@@ -91,8 +91,7 @@ class AccountService extends BaseService {
             throw new Exception("Password is incorrect!");
         }
 
-        $jwt = JWT::encode(["id" => $account_from_db['id']], Config::JWT_SECRET);
-
+        $jwt = JWT::encode(["id" => $account_from_db['id'], "at" => $account_from_db['account_type']], Config::JWT_SECRET);
         return ["token" => $jwt];
     }
 

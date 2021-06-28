@@ -193,7 +193,7 @@ Flight::route("GET /accounts/confirm/@token", function($token) {
  * )
  */
 Flight::route("GET /accounts/@id", function($id) {
-    if (Flight::get('account')['id'] != $id) throw new Exception("This account is not for you!");
+    if (Flight::get('account') != $id) throw new Exception("This account is not for you!");
     Flight::json(Flight::accountService()->get_by_id($id));
 });
 
