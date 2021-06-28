@@ -88,7 +88,7 @@ require_once dirname(__FILE__)."/../config.php";
 
         // Updating.
         protected function update($table, $field, $field_value, $params) {
-            $query = "UPDATE ${table} SET ";
+            $query = "UPDATE " .$this->_table. " SET ";
             foreach($params as $name => $value) {
                 $query .= " " .$name ." = :". $name .", ";
             }

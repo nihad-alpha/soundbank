@@ -35,7 +35,7 @@ class AccountService extends BaseService {
 
         $account['password'] = password_hash($account['password'], PASSWORD_DEFAULT);
         // Append to the account object when the user was created, the exact moment.
-        $account += ["created_at" => date(Config::DATE_FORMAT)];
+        $account += ["token_created_at" => date(Config::DATE_FORMAT)];
 
         return parent::add($account);
     }
@@ -61,13 +61,13 @@ class AccountService extends BaseService {
 
         $account_from_db = $this->dao->get_by_token($account['token']);
 
-        // To prevent hackers stealing this token, it expires after 3 minutes.
-        if (strtotime(date(Config::DATE_FORMAT)) - strtotime($account_from_db['token_created_at']) > 180) throw new Exception("Token has expired.");
-
         if (!isset($account_from_db['id'])) throw new Exception("Account does not exist!");
 
+        // To prevent hackers stealing this token, it expires after 3 minutes.
+        //if (strtotime(date(Config::DATE_FORMAT)) - strtotime($account_from_db['token_created_at']) > 180) throw new Exception("Token has expired.");
+
         //update password
-        $account_from_db = $this->dao->update_by_id($account_from_db['id'], ['password' => password_hash($account['password'], PASSWORD_DEFAULT), 'token' => null]);
+        $account_from_db = $this->dao->update_by_id($account_from_db['id'], ['password' => password_hash($account['password'], PASSWORD_DEFAULT), 'token' => NULL]);
         return $account_from_db;
     }
 
@@ -110,10 +110,10 @@ class AccountService extends BaseService {
                 "email" => $account["email"],
                 "username" => $account["username"],
                 "password" => $hashed_password,
-                "account_type" => "REGISTERED",
+                "account_type" => "USER",
                 "status" => "PENDING",
                 "token" => md5(random_bytes(16)),
-                "created_at" => date(Config::DATE_FORMAT)
+                "token_created_at" => date(Config::DATE_FORMAT)
             ];   
             parent::add($new_account);
 
@@ -136,6 +136,17 @@ class AccountService extends BaseService {
 
         $this->dao->update_by_id($account["id"], ["status" => "ACTIVE", "token" => null]);   
         // TO DO: Send an email to the account that the account is confirmed!
+    }
+
+    public function change_password($id, $account){
+        if (!isset($id)) throw new Exception("Account doesn't exist!");
+        if (!isset($account['password'])) throw new Exception("Password is missing!");
+
+        // To prevent hackers stealing this token, it expires after 3 minutes.
+        //if (strtotime(date(Config::DATE_FORMAT)) - strtotime($account_from_db['token_created_at']) > 180) throw new Exception("Token has expired.");
+
+        //update password
+        $this->dao->update_by_id($id, ['password' => password_hash($account['password'], PASSWORD_DEFAULT), 'token' => NULL]);
     }
 
     public function get_by_username($username) {

@@ -274,4 +274,30 @@ Flight::route("PUT /accounts/@id", function($id){
     Flight::json(Flight::accountService()->get_by_id($id));
 });
 
+/**
+    * @OA\Put( path="/accounts/change_password/{id}", tags={"account"}, security={{"ApiKeyAuth": {}}},
+    *     @OA\Parameter(type="integer", in="path", name="id", default=0, description="ID of the account you want to update."),
+    *     @OA\RequestBody(
+    *         required=true,
+    *         @OA\MediaType(
+    *             mediaType="application/json",
+    *             @OA\Schema(
+    *                 @OA\Property(
+    *                     description="New password",
+    *                     property="password",
+    *                     type="string",
+    *                     example = "PASSWORD_EXAMPLE"
+    *                 )
+    *              )
+    *        )
+    *     ),
+    *     @OA\Response(response="200", description="Update an account by ID.")
+    * )
+*/
+Flight::route("PUT /accounts/change_password/@id", function($id){
+    $data = Flight::request()->data->getData();
+    Flight::accountService()->change_password($id, $data);
+    Flight::json(Flight::accountService()->get_by_id($id));
+});
+
 ?>

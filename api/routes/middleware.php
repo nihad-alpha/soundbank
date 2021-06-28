@@ -36,8 +36,8 @@ Flight::route('/*', function () {
     $token = @$headers['Authentication'];
     
     try {
-        $decoded = (array)\Firebase\JWT\JWT::decode($token, Config::JWT_SECRET, ["HS256"]);
-        if (Flight::request()->method != "GET" && $decoded['account_type'] != "ADMIN"){
+        $decoded = (array)\Firebase\JWT\JWT::decode($token, Config::JWT_SECRET, ["HS256"]);  
+        if ($decoded['at'] != "ADMIN"){
             throw new Exception("You are not the administrator.", 403);
         }
         Flight::set('account', $decoded['id']);
