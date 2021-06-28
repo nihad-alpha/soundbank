@@ -34,12 +34,12 @@ class SMTPClient {
     }
 
     public function send_register_account_token($account) {
-        $message = $this->create_message("Confirmation email", "nihad.suvalija@stu.ibu.edu.ba", $account['email'], "Click this link for confirmation: https://www.soundbank.games/confirm.html?token=". $account['token']);
+        $message = $this->create_message("Confirmation email", "nihad.suvalija@stu.ibu.edu.ba", $account['email'], "Click this link for confirmation: http://localhost/soundbank/confirm.html?token=". $account['token']);
         $this->mailer->send($message);
     }
 
     public function send_recovery_account_token($account) {
-        $message = $this->create_message("Recovery email", "nihad.suvalija@stu.ibu.edu.ba", $account['email'], "Recovery link: https://www.soundbank.games/new_password.html?token=". $account['token']);
+        $message = $this->create_message("Recovery email", "nihad.suvalija@stu.ibu.edu.ba", $account['email'], "Recovery link: http://localhost/soundbank/new_password.html?token=". $account['token']);
         $this->mailer->send($message);
     }
 }
