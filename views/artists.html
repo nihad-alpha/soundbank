@@ -228,20 +228,30 @@
     </div>
 </main>
 <!-- end main content -->
-
+<script src = "assets/js/restClient.js"></script>
 <script>
 $(function() {
     if (!window.localStorage.getItem("token")) {
         window.location = "#signin";
     }
 
-    $.get("api/artists", function(data){
+    RestClient.get("api/artists", 
+			function (data) {
+				for (let i = 0; i < data.length; i++) {
+                    generateArtist(data[i]);
+                }
+			},
+			function(error) {
+				alert(error.responseJSON.message);
+			});
+            
+    /*$.get("api/artists", function(data){
         for (let i = 0; i < data.length; i++) {
             generateArtist(data[i]);
         }
     }).fail(function(error) {
         alert(error.responseJSON.message);
-    });
+    });*/
     
 });
 

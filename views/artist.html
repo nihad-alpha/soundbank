@@ -10,12 +10,11 @@
 								<div class="article__artist">
 									<img id = "image" src="./assets/img/artists/eminem.jpg" alt="">
 									<div>
-										<h1 id = "artist_name">Artist</h1>
-										<span id = "user_name">John Doe</span>
+										<h1 id = "artist_name">Artist name loading...</h1>
 									</div>
 								</div>
 
-								<p id = "description">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
+								<p id = "description">Artist description loading...</p>
 							</div>
 							<!-- end article content -->
 						</div>
@@ -240,11 +239,23 @@
 			</div>
 		</main>
 		<!-- end main content -->
+	<script src="assets/js/restClient.js"></script>
 	<script>
 		window.onload = function() {
-			$("main").hide();
 			var id = window.localStorage.getItem("id");
-			$.get("api/artists/"+id, function(data){
+
+			RestClient.get("api/artists/"+id, 
+			function (data) {
+				var desc = document.getElementById("description");
+				desc.innerHTML = data.description;
+
+				var artist_name = document.getElementById("artist_name");
+				artist_name.innerHTML = data.name;
+			},
+			function(error) {
+				alert(error.responseJSON.message);
+			});
+			/*$.get("api/artists/"+id, function(data){
 				var desc = document.getElementById("description");
 				desc.innerHTML = data.description;
 
@@ -254,7 +265,7 @@
 				$("main").show();
 			}).fail(function(error) {
 				alert(error.responseJSON.message);
-			});
+			});*/
 		}
 
 		window.onclose = function() {

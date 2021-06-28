@@ -29,6 +29,7 @@ Flight::route('/*', function () {
     if (str_starts_with (Flight::request()->url, '/accounts/forgot')) return TRUE;
     if (str_starts_with (Flight::request()->url, '/accounts/confirm')) return TRUE;
     if (str_starts_with (Flight::request()->url, '/accounts/reset')) return TRUE;
+    if (str_starts_with (Flight::request()->url, '/artists/')) return TRUE;
     if (str_starts_with (Flight::request()->url, '/artists')) return TRUE;
     if (Flight::request()->url == '/') return TRUE;
 
@@ -37,7 +38,7 @@ Flight::route('/*', function () {
     
     try {
         $decoded = (array)\Firebase\JWT\JWT::decode($token, Config::JWT_SECRET, ["HS256"]);  
-        if ($decoded['at'] != "ADMIN"){
+        if (Flight::request()->method != "GET" && $decoded['at'] != "ADMIN"){
             throw new Exception("You are not the administrator.", 403);
         }
         Flight::set('account', $decoded['id']);
